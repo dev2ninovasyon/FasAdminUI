@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   TableContainer,
   Table,
@@ -18,60 +18,81 @@ import {
 import BlankCard from "../shared/BlankCard";
 import { Box, Stack } from "@mui/system";
 import {
+  IconCash,
   IconDotsVertical,
   IconEdit,
+  IconEye,
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
+import {
+  deleteDenetciById,
+  getDenetciler,
+} from "@/api/DenetciIslemleri/DenetciIslemleri";
+import { useRouter } from "next/navigation";
 
-const rows = [
-  {
-    firmaAdi: "Adalya Uluslararası Bağımsız Denetim",
-    telefon: "(0242) 243 0 243",
-    arsivId: "DNTC_8I5VAN4X",
-    kayitTarihi: "3.04.2018",
-    baslangicTarihi: "4.04.2019",
-    bitisTarihi: "4.04.2019",
-    durum: "Aktif",
-  },
-  {
-    firmaAdi: "Galata Global Bağımsız Denetim ve Danışmanlık A.Ş.",
-    telefon: "(0242) 243 0 243",
-    arsivId: "DNTC_8I5VAN4X",
-    kayitTarihi: "3.04.2018",
-    baslangicTarihi: "4.04.2019",
-    bitisTarihi: "4.04.2019",
-    durum: "Pasif",
-  },
-  {
-    firmaAdi: "Küresel Bağımsız Denetim A.Ş.",
-    telefon: "(0242) 243 0 243",
-    arsivId: "DNTC_8I5VAN4X",
-    kayitTarihi: "3.04.2018",
-    baslangicTarihi: "4.04.2019",
-    bitisTarihi: "4.04.2019",
-    durum: "Aktif",
-  },
-  {
-    firmaAdi: "İktisat Bağımsız Denetim A.Ş",
-    telefon: "(0242) 243 0 243",
-    arsivId: "DNTC_8I5VAN4X",
-    kayitTarihi: "3.04.2018",
-    baslangicTarihi: "4.04.2019",
-    bitisTarihi: "4.04.2019",
-    durum: "Aktif",
-  },
-];
-
-const Table2 = () => {
+const DenetciTable = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const router = useRouter();
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDetay = (id: number) => {
+    handleClose();
+    router.push(`/DenetciFirmaIslemleri/DenetciDetay/${id}`);
+  };
+
+  const handleDelete = async (id: number) => {
+    handleClose();
+    try {
+      const result = await deleteDenetciById(id);
+      if (result) {
+        fetchData();
+      } else {
+        console.error("Denetci silinemedi");
+      }
+    } catch (error) {
+      console.error("Bir hata oluştu:", error);
+    }
+  };
+
+  const [rows, setRows] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const denetciVerileri = await getDenetciler();
+      const newRows = denetciVerileri.map((denetci: any) => ({
+        id: denetci.id,
+        firmaAdi: denetci.firmaAdi,
+        firmaUnvani: denetci.firmaUnvani,
+        adres: denetci.adres,
+        il: denetci.il,
+        tel: denetci.tel,
+        fax: denetci.fax,
+        email: denetci.email,
+        web: denetci.web,
+        vergiNo: denetci.vergiNo,
+        vergiDairesi: denetci.vergiDairesi,
+        ticaretSicilNo: denetci.ticaretSicilNo,
+        kayitTarihi: denetci.kayitTarihi,
+        arsivId: denetci.arsivId,
+        aktifmi: denetci.aktifmi,
+      }));
+      setRows(newRows);
+    } catch (error) {
+      console.error("Bir hata oluştu:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <BlankCard>
@@ -117,9 +138,9 @@ const Table2 = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row: any) => (
               <TableRow
-                key={row.firmaAdi}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
@@ -131,7 +152,7 @@ const Table2 = () => {
                     variant="subtitle1"
                     color="textSecondary"
                   >
-                    {row.telefon}
+                    {row.tel}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -151,7 +172,7 @@ const Table2 = () => {
                     variant="subtitle1"
                     color="textSecondary"
                   >
-                    {row.kayitTarihi}
+                    {row.kayitTarihi.split("T")[0]}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -177,20 +198,18 @@ const Table2 = () => {
 
                 <TableCell sx={{ textAlign: "center" }}>
                   <Chip
-                    label={row.durum}
+                    label={row.aktifmi ? "Aktif" : "Pasif"}
                     sx={{
-                      backgroundColor:
-                        row.durum == "Aktif"
-                          ? (theme) => theme.palette.primary.light
-                          : row.durum == "Pasif"
-                          ? (theme) => theme.palette.error.light
-                          : (theme) => theme.palette.success.light,
-                      color:
-                        row.durum == "Aktif"
-                          ? (theme) => theme.palette.primary.main
-                          : row.durum == "Pasif"
-                          ? (theme) => theme.palette.error.main
-                          : (theme) => theme.palette.success.main,
+                      backgroundColor: row.aktifmi
+                        ? (theme) => theme.palette.primary.light
+                        : row.aktifmi
+                        ? (theme) => theme.palette.error.light
+                        : (theme) => theme.palette.success.light,
+                      color: row.aktifmi
+                        ? (theme) => theme.palette.primary.main
+                        : row.aktifmi
+                        ? (theme) => theme.palette.error.main
+                        : (theme) => theme.palette.success.main,
                     }}
                   />
                 </TableCell>
@@ -216,7 +235,7 @@ const Table2 = () => {
                   >
                     <MenuItem onClick={handleClose}>
                       <ListItemIcon>
-                        <IconEdit width={18} />
+                        <IconCash width={18} />
                       </ListItemIcon>
                       Ödeme Bilgileri
                     </MenuItem>
@@ -233,13 +252,13 @@ const Table2 = () => {
                       Düzenle
                     </MenuItem>
 
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => handleDetay(row.id)}>
                       <ListItemIcon>
-                        <IconEdit width={18} />
+                        <IconEye width={18} />
                       </ListItemIcon>
                       Detay
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => handleDelete(row.id)}>
                       <ListItemIcon>
                         <IconTrash width={18} />
                       </ListItemIcon>
@@ -256,4 +275,4 @@ const Table2 = () => {
   );
 };
 
-export default Table2;
+export default DenetciTable;

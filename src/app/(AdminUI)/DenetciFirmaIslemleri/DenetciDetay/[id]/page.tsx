@@ -5,6 +5,7 @@ import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
 import ParentCard from "@/app/components/shared/ParentCard";
 import DenetciciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButton";
 import DenetciTable from "@/app/components/tables/DenetciTable";
+import DenetciDetay from "@/app/components/DenetciIslemleri/DenetciDetay";
 
 const BCrumb = [
   {
@@ -15,21 +16,24 @@ const BCrumb = [
     to: "/DenetciFirmaIslemleri",
     title: "Denetçi Firma İşlemleri",
   },
+  {
+    to: "/DenetciDetay",
+    title: "Denetçi Detay",
+  },
 ];
 
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Firma İşlemleri"
-      description="this is Denetçi Firma İşlemleri page"
+      title="Denetçi Detay Page"
+      description="this is Denetçi Detay page"
     >
-      <Breadcrumb title="Denetçi Firma İşlemleri" items={BCrumb} />
-      <ParentCard title="Denetçiler">
+      <Breadcrumb title="Denetçi Detay" items={BCrumb} />
+      <ParentCard title="Denetçi Detay">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <DenetciciEkleButton />
             <Box>
-              <DenetciTable />
+              <DenetciDetay />
             </Box>
           </Grid>
         </Grid>
