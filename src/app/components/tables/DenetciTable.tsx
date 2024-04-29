@@ -41,6 +41,11 @@ const DenetciTable = () => {
     setAnchorEl(null);
   };
 
+  const handleOdemeBilgileri = () => {
+    handleClose();
+    router.push(`/DenetciFirmaIslemleri/DenetciOdemeBilgileri`);
+  };
+
   const handleKullaniciEkle = (id: number) => {
     handleClose();
     router.push(`/DenetciFirmaIslemleri/KullaniciEkle/${id}`);
@@ -241,7 +246,7 @@ const DenetciTable = () => {
                       "aria-labelledby": "basic-button",
                     }}
                   >
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => handleOdemeBilgileri()}>
                       <ListItemIcon>
                         <IconCash width={18} />
                       </ListItemIcon>
