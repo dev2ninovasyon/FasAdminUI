@@ -1,13 +1,23 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import { usePathname } from "next/navigation";
-import { getDenetciById } from "@/api/DenetciIslemleri/DenetciIslemleri";
+import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  getDenetciById,
+  updateDenetci,
+} from "@/api/DenetciIslemleri/DenetciIslemleri";
 
-const DenetciDetay = () => {
+const DenetciDuzenleForm = () => {
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  const idIndex = segments.indexOf("DenetciDuzenle") + 1;
+  const pathId = segments[idIndex];
+
+  const id = pathId;
   const [firmaAdi, setFirmaAdi] = useState(0);
   const [firmaUnvani, setFirmaUnvani] = useState("");
-  const [adres, setAdress] = useState("");
+  const [adres, setAdres] = useState("");
   const [il, setIl] = useState("");
   const [tel, setTel] = useState("");
   const [fax, setFax] = useState("");
@@ -20,27 +30,51 @@ const DenetciDetay = () => {
     new Date().toISOString().substr(0, 10)
   );
   const [aktifmi, setAktifmi] = useState(true);
-  const pathname = usePathname();
-  const segments = pathname.split("/");
-  const idIndex = segments.indexOf("DenetciDetay") + 1;
-  const pathId = segments[idIndex];
+
+  const router = useRouter();
+
+  const handleButtonClick = async () => {
+    const updatedDenetci = {
+      firmaAdi,
+      firmaUnvani,
+      adres,
+      il,
+      tel,
+      fax,
+      email,
+      web,
+      vergiNo,
+      vergiDairesi,
+      ticaretSicilNo,
+      aktifmi,
+    };
+    try {
+      const result = await updateDenetci(id, updatedDenetci);
+      if (result) {
+        router.push("/DenetciFirmaIslemleri");
+      } else {
+        console.error("Denetçi düzenleme başarısız");
+      }
+    } catch (error) {
+      console.error("Bir hata oluştu:", error);
+    }
+  };
 
   const fetchData = async () => {
     try {
-      const result = await getDenetciById(pathId);
-      setFirmaAdi(result.firmaAdi);
-      setFirmaUnvani(result.firmaUnvani);
-      setAdress(result.adres);
-      setIl(result.il);
-      setTel(result.tel);
-      setFax(result.fax);
-      setEmail(result.email);
-      setWeb(result.web);
-      setVergiNo(result.vergiNo);
-      setVergidairesi(result.vergiDairesi);
-      setTicaretSicilNo(result.ticaretSicilNo);
-      setKayitTarihi(result.kayitTarihi);
-      setAktifmi(result.aktifmi);
+      const denetciVerileri = await getDenetciById(pathId);
+      setFirmaAdi(denetciVerileri.firmaAdi);
+      setFirmaUnvani(denetciVerileri.firmaUnvani);
+      setAdres(denetciVerileri.adres);
+      setIl(denetciVerileri.il);
+      setTel(denetciVerileri.tel);
+      setFax(denetciVerileri.fax);
+      setEmail(denetciVerileri.email);
+      setWeb(denetciVerileri.web);
+      setVergiNo(denetciVerileri.vergiNo);
+      setVergidairesi(denetciVerileri.vergiDairesi);
+      setTicaretSicilNo(denetciVerileri.ticaretSicilNo);
+      setAktifmi(denetciVerileri.aktifmi);
     } catch (error) {
       console.error("Bir hata oluştu:", error);
     }
@@ -63,9 +97,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {firmaAdi}
-          </Typography>
+          <CustomTextField
+            id="firmaAdi"
+            value={firmaAdi}
+            fullWidth
+            onChange={(e: any) => setFirmaAdi(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -76,9 +113,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {firmaUnvani}
-          </Typography>
+          <CustomTextField
+            id="firmaUnvani"
+            value={firmaUnvani}
+            fullWidth
+            onChange={(e: any) => setFirmaUnvani(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -89,9 +129,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {adres}
-          </Typography>
+          <CustomTextField
+            id="adres"
+            value={adres}
+            fullWidth
+            onChange={(e: any) => setAdres(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -102,9 +145,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {il}
-          </Typography>
+          <CustomTextField
+            id="il"
+            value={il}
+            fullWidth
+            onChange={(e: any) => setIl(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -115,9 +161,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {tel}
-          </Typography>
+          <CustomTextField
+            id="tel"
+            value={tel}
+            fullWidth
+            onChange={(e: any) => setTel(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -128,9 +177,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {fax}
-          </Typography>
+          <CustomTextField
+            id="fax"
+            value={fax}
+            fullWidth
+            onChange={(e: any) => setFax(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -141,9 +193,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {email}
-          </Typography>
+          <CustomTextField
+            id="email"
+            value={email}
+            fullWidth
+            onChange={(e: any) => setEmail(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -154,9 +209,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {web}
-          </Typography>
+          <CustomTextField
+            id="web"
+            value={web}
+            fullWidth
+            onChange={(e: any) => setWeb(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -167,9 +225,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {vergiNo}
-          </Typography>
+          <CustomTextField
+            id="vergiNo"
+            value={vergiNo}
+            fullWidth
+            onChange={(e: any) => setVergiNo(e.target.value)}
+          />
         </Grid>
 
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
@@ -181,9 +242,12 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {vergiDairesi}
-          </Typography>
+          <CustomTextField
+            id="vergiDairesi"
+            value={vergiDairesi}
+            fullWidth
+            onChange={(e: any) => setVergidairesi(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -194,15 +258,27 @@ const DenetciDetay = () => {
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography textAlign="left" variant="h6">
-            {ticaretSicilNo}
-          </Typography>
+          <CustomTextField
+            id="ticaretSicilNo"
+            value={ticaretSicilNo}
+            fullWidth
+            onChange={(e: any) => setTicaretSicilNo(e.target.value)}
+          />
         </Grid>
 
         <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={9}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleButtonClick}
+          >
+            Denetçi Düzenle
+          </Button>
+        </Grid>
       </Grid>
     </div>
   );
 };
 
-export default DenetciDetay;
+export default DenetciDuzenleForm;

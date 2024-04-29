@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import ParentCard from "@/app/components/shared/ParentCard";
 import PageContainer from "@/app/components/container/PageContainer";
 import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
-import DenetciEkleForm from "@/app/components/DenetciIslemleri/DenetciEkleForm";
+import DenetciDuzenleForm from "@/app/components/DenetciIslemleri/DenetciDuzenleForm";
 
 const BCrumb = [
   {
@@ -15,26 +15,22 @@ const BCrumb = [
     to: "/DenetciFirmaIslemleri",
     title: "Denetçi Firma İşlemleri",
   },
-  {
-    to: "/DenetciFirmaIslemleri/DenetciEkle",
-    title: "Denetçi Ekle",
-  },
 ];
 
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Ekle Page"
-      description="this is Denetçi Ekle page"
+      title="Denetçi Düzenle Page"
+      description="this is Denetçi Düzenle page"
     >
-      <ParentCard title="Denetçi Ekle">
+      <ParentCard title="Denetçi Düzenle">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Breadcrumb title="Denetçi Ekle" items={BCrumb} />
+            <Breadcrumb title="Denetçi Düzenle" items={BCrumb} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <ParentCard title="Yeni Denetçi">
-                  <DenetciEkleForm />
+                <ParentCard title="Denetçi">
+                  <DenetciDuzenleForm />
                 </ParentCard>
               </Grid>
             </Grid>

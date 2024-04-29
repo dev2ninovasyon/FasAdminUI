@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import React, { useState } from "react";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
@@ -8,7 +8,6 @@ import { createDenetci } from "@/api/DenetciIslemleri/DenetciIslemleri";
 const DenetciEkleForm = () => {
   const [firmaAdi, setFirmaAdi] = useState(0);
   const [firmaUnvani, setFirmaUnvani] = useState("abcd");
-
   const [adres, setAdress] = useState("");
   const [il, setIl] = useState("");
   const [tel, setTel] = useState("");
@@ -46,7 +45,7 @@ const DenetciEkleForm = () => {
       if (result) {
         router.push("/DenetciFirmaIslemleri");
       } else {
-        console.error("Kullanıcı ekleme başarısız");
+        console.error("Denetçi ekleme başarısız");
       }
     } catch (error) {
       console.error("Bir hata oluştu:", error);
@@ -55,7 +54,6 @@ const DenetciEkleForm = () => {
   return (
     <div>
       <Grid container spacing={3}>
-        {/* 1 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
             htmlFor="firmaAdi"

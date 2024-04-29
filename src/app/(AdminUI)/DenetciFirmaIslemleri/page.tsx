@@ -3,8 +3,8 @@ import { Box, Grid } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
 import ParentCard from "@/app/components/shared/ParentCard";
-import DenetciciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButton";
 import DenetciTable from "@/app/components/tables/DenetciTable";
+import DenetciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButton";
 
 const BCrumb = [
   {
@@ -20,14 +20,14 @@ const BCrumb = [
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Firma İşlemleri"
+      title="Denetçi Firma İşlemleri Page"
       description="this is Denetçi Firma İşlemleri page"
     >
       <Breadcrumb title="Denetçi Firma İşlemleri" items={BCrumb} />
       <ParentCard title="Denetçiler">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <DenetciciEkleButton />
+            <DenetciEkleButton />
             <Box>
               <DenetciTable />
             </Box>

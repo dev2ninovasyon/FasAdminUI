@@ -57,6 +57,48 @@ export const createDenetci = async (createdDenetci: any) => {
   }
 };
 
+export const createKullanici = async (createdKullanici: any) => {
+  try {
+    const response = await fetch(`${url}/Kullanici`, {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createdKullanici),
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};
+
+export const updateDenetci = async (id: any, updatedDenetci: any) => {
+  try {
+    const response = await fetch(`${url}/Denetci/${id}`, {
+      method: "PUT",
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedDenetci),
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};
+
 export const deleteDenetciById = async (id: number) => {
   try {
     const response = await fetch(`${url}/Denetci/${id}`, {

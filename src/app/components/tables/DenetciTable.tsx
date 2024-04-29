@@ -13,10 +13,8 @@ import {
   MenuItem,
   IconButton,
   ListItemIcon,
-  AvatarGroup,
 } from "@mui/material";
 import BlankCard from "../shared/BlankCard";
-import { Box, Stack } from "@mui/system";
 import {
   IconCash,
   IconDotsVertical,
@@ -41,6 +39,16 @@ const DenetciTable = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleKullaniciEkle = (id: number) => {
+    handleClose();
+    router.push(`/DenetciFirmaIslemleri/KullaniciEkle/${id}`);
+  };
+
+  const handleDuzenle = (id: number) => {
+    handleClose();
+    router.push(`/DenetciFirmaIslemleri/DenetciDuzenle/${id}`);
   };
 
   const handleDetay = (id: number) => {
@@ -239,13 +247,13 @@ const DenetciTable = () => {
                       </ListItemIcon>
                       Ödeme Bilgileri
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => handleKullaniciEkle(row.id)}>
                       <ListItemIcon>
                         <IconPlus width={18} />
                       </ListItemIcon>
                       Kullanıcı Ekle
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => handleDuzenle(row.id)}>
                       <ListItemIcon>
                         <IconEdit width={18} />
                       </ListItemIcon>

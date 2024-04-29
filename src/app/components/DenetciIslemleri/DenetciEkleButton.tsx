@@ -1,25 +1,9 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  Divider,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { IconTrash, IconSend, IconPlus, IconX } from "@tabler/icons-react";
+import { Button, Stack } from "@mui/material";
+import { IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import CustomTextField from "../forms/theme-elements/CustomTextField";
 
-const DenetciciEkleButton = () => {
-  //const [showDrawer2, setShowDrawer2] = useState(false);
+const DenetciEkleButton = () => {
   const router = useRouter();
-
-  /*const handleDrawerClose2 = () => {
-    setShowDrawer2(false);
-  };*/
 
   const handleRouteClick = () => {
     router.push("/DenetciFirmaIslemleri/DenetciEkle");
@@ -35,10 +19,7 @@ const DenetciciEkleButton = () => {
       >
         <Button
           color="primary"
-          onClick={
-            () => handleRouteClick()
-            /*() => setShowDrawer2(true)*/
-          }
+          onClick={() => handleRouteClick()}
           startIcon={<IconPlus width={18} />}
         >
           Denetçi Firma Ekle
@@ -48,4 +29,4 @@ const DenetciciEkleButton = () => {
   );
 };
 
-export default DenetciciEkleButton;
+export default DenetciEkleButton;

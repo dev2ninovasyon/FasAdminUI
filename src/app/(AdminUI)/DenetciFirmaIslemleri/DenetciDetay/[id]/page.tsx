@@ -3,8 +3,6 @@ import { Box, Grid } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
 import ParentCard from "@/app/components/shared/ParentCard";
-import DenetciciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButton";
-import DenetciTable from "@/app/components/tables/DenetciTable";
 import DenetciDetay from "@/app/components/DenetciIslemleri/DenetciDetay";
 
 const BCrumb = [
@@ -15,10 +13,6 @@ const BCrumb = [
   {
     to: "/DenetciFirmaIslemleri",
     title: "Denetçi Firma İşlemleri",
-  },
-  {
-    to: "/DenetciDetay",
-    title: "Denetçi Detay",
   },
 ];
 
