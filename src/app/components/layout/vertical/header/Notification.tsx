@@ -11,11 +11,11 @@ import {
   Chip,
 } from "@mui/material";
 import * as dropdownData from "./data";
-import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
 
 import { IconBellRinging } from "@tabler/icons-react";
 import { Stack } from "@mui/system";
 import Link from "next/link";
+import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
 
 const Notifications = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -36,13 +36,10 @@ const Notifications = () => {
         color="inherit"
         aria-controls="msgs-menu"
         aria-haspopup="true"
-        sx={{
-          color: anchorEl2 ? "primary.main" : "text.secondary",
-        }}
         onClick={handleClick2}
       >
         <Badge variant="dot" color="primary">
-          <IconBellRinging size="21" stroke="1.5" />
+          <IconBellRinging size="20" />
         </Badge>
       </IconButton>
       {/* ------------------------------------------- */}
@@ -69,8 +66,8 @@ const Notifications = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">Notifications</Typography>
-          <Chip label="5 new" color="primary" size="small" />
+          <Typography variant="h6">Bildirimler</Typography>
+          <Chip label="1 new" color="primary" size="small" />
         </Stack>
         <Scrollbar sx={{ height: "385px" }}>
           {dropdownData.notifications.map((notification, index) => (
@@ -121,7 +118,7 @@ const Notifications = () => {
             color="primary"
             fullWidth
           >
-            See all Notifications
+            Tüm Bildirimler
           </Button>
         </Box>
       </Menu>

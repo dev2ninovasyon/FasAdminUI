@@ -9,10 +9,10 @@ interface notificationType {
 const notifications: notificationType[] = [
   {
     avatar: "/images/profile/user-1.jpg",
-    title: "Roman Joined the Team!",
-    subtitle: "Congratulate him",
+    title: "Ahmet Uygulamaya Katıldı!",
+    subtitle: "Tebrik et.",
   },
-  {
+  /*{
     avatar: "/images/profile/user-2.jpg",
     title: "New message received",
     subtitle: "Salma sent you new message",
@@ -46,7 +46,7 @@ const notifications: notificationType[] = [
     avatar: "/images/profile/user-4.jpg",
     title: "Jolly completed tasks",
     subtitle: "Assign her new tasks",
-  },
+  },*/
 ];
 
 //
@@ -61,11 +61,11 @@ interface ProfileType {
 const profile: ProfileType[] = [
   {
     href: "/apps/user-profile/profile",
-    title: "My Profile",
-    subtitle: "Account Settings",
+    title: "Profilim",
+    subtitle: "Hesap ayarları",
     icon: "/images/svgs/icon-account.svg",
   },
-  {
+  /*{
     href: "/apps/email",
     title: "My Inbox",
     subtitle: "Messages & Emails",
@@ -76,7 +76,7 @@ const profile: ProfileType[] = [
     title: "My Tasks",
     subtitle: "To-do and Daily Tasks",
     icon: "/images/svgs/icon-tasks.svg",
-  },
+  },*/
 ];
 
 // apps dropdown
@@ -179,4 +179,4 @@ const pageLinks: LinkType[] = [
   },
 ];
 
-export { notifications,  profile, pageLinks, appsLink };
+export { notifications, profile, pageLinks, appsLink };
