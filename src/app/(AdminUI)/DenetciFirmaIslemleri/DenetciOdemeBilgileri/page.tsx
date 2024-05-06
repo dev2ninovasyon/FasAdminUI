@@ -26,8 +26,8 @@ const BCrumb = [
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Firma İşlemleri"
-      description="this is Denetçi Ödeme İşlemleri page"
+      title="Denetçi Ödeme İşlemleri"
+      description="this is Denetçi Ödeme İşlemleri"
     >
       <Breadcrumb title="Denetçi Ödeme İşlemleri" items={BCrumb} />
       <ParentCard title="Denetçi Ödeme Bilgileri">

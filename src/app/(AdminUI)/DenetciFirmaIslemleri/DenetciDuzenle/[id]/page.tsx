@@ -20,8 +20,8 @@ const BCrumb = [
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Düzenle Page"
-      description="this is Denetçi Düzenle page"
+      title="Denetçi Düzenle"
+      description="this is Denetçi Düzenle"
     >
       <ParentCard title="Denetçi Düzenle">
         <Grid container spacing={3}>

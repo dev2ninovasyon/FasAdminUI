@@ -20,8 +20,8 @@ const BCrumb = [
 const Page = () => {
   return (
     <PageContainer
-      title="Denetçi Firma İşlemleri Page"
-      description="this is Denetçi Firma İşlemleri page"
+      title="Denetçi Firma İşlemleri"
+      description="this is Denetçi Firma İşlemleri"
     >
       <Breadcrumb title="Denetçi Firma İşlemleri" items={BCrumb} />
       <ParentCard title="Denetçiler">

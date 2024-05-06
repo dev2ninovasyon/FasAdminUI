@@ -214,15 +214,11 @@ const DenetciTable = () => {
                     label={row.aktifmi ? "Aktif" : "Pasif"}
                     sx={{
                       backgroundColor: row.aktifmi
-                        ? (theme) => theme.palette.primary.light
-                        : row.aktifmi
-                        ? (theme) => theme.palette.error.light
-                        : (theme) => theme.palette.success.light,
+                        ? (theme) => theme.palette.success.light
+                        : (theme) => theme.palette.error.light,
                       color: row.aktifmi
-                        ? (theme) => theme.palette.primary.main
-                        : row.aktifmi
-                        ? (theme) => theme.palette.error.main
-                        : (theme) => theme.palette.success.main,
+                        ? (theme) => theme.palette.success.main
+                        : (theme) => theme.palette.error.main,
                     }}
                   />
                 </TableCell>

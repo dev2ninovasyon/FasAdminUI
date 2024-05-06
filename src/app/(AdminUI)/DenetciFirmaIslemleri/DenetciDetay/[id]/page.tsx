@@ -18,10 +18,7 @@ const BCrumb = [
 
 const Page = () => {
   return (
-    <PageContainer
-      title="Denetçi Detay Page"
-      description="this is Denetçi Detay page"
-    >
+    <PageContainer title="Denetçi Detay" description="this is Denetçi Detay">
       <Breadcrumb title="Denetçi Detay" items={BCrumb} />
       <ParentCard title="Denetçi Detay">
         <Grid container spacing={3}>
