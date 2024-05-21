@@ -31,9 +31,15 @@ import { useRouter } from "next/navigation";
 
 const DenetciTable = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
     setAnchorEl(event.currentTarget);
+    setSelectedId(id);
   };
   const router = useRouter();
 
@@ -46,25 +52,25 @@ const DenetciTable = () => {
     router.push(`/DenetciFirmaIslemleri/DenetciOdemeBilgileri`);
   };
 
-  const handleKullaniciEkle = (id: number) => {
+  const handleKullaniciEkle = () => {
     handleClose();
-    router.push(`/DenetciFirmaIslemleri/KullaniciEkle/${id}`);
+    router.push(`/DenetciFirmaIslemleri/KullaniciEkle/${selectedId}`);
   };
 
-  const handleDuzenle = (id: number) => {
+  const handleDuzenle = () => {
     handleClose();
-    router.push(`/DenetciFirmaIslemleri/DenetciDuzenle/${id}`);
+    router.push(`/DenetciFirmaIslemleri/DenetciDuzenle/${selectedId}`);
   };
 
-  const handleDetay = (id: number) => {
+  const handleDetay = () => {
     handleClose();
-    router.push(`/DenetciFirmaIslemleri/DenetciDetay/${id}`);
+    router.push(`/DenetciFirmaIslemleri/DenetciDetay/${selectedId}`);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async () => {
     handleClose();
     try {
-      const result = await deleteDenetciById(id);
+      const result = await deleteDenetciById(selectedId || 0);
       if (result) {
         fetchData();
       } else {
@@ -229,7 +235,7 @@ const DenetciTable = () => {
                     aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
+                    onClick={(event) => handleClick(event, row.id)}
                   >
                     <IconDotsVertical width={18} />
                   </IconButton>
@@ -248,26 +254,26 @@ const DenetciTable = () => {
                       </ListItemIcon>
                       Ödeme Bilgileri
                     </MenuItem>
-                    <MenuItem onClick={() => handleKullaniciEkle(row.id)}>
+                    <MenuItem onClick={() => handleKullaniciEkle()}>
                       <ListItemIcon>
                         <IconPlus width={18} />
                       </ListItemIcon>
                       Kullanıcı Ekle
                     </MenuItem>
-                    <MenuItem onClick={() => handleDuzenle(row.id)}>
+                    <MenuItem onClick={() => handleDuzenle()}>
                       <ListItemIcon>
                         <IconEdit width={18} />
                       </ListItemIcon>
                       Düzenle
                     </MenuItem>
 
-                    <MenuItem onClick={() => handleDetay(row.id)}>
+                    <MenuItem onClick={() => handleDetay()}>
                       <ListItemIcon>
                         <IconEye width={18} />
                       </ListItemIcon>
                       Detay
                     </MenuItem>
-                    <MenuItem onClick={() => handleDelete(row.id)}>
+                    <MenuItem onClick={() => handleDelete()}>
                       <ListItemIcon>
                         <IconTrash width={18} />
                       </ListItemIcon>
