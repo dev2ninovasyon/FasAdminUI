@@ -8,7 +8,7 @@ import DenetciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButt
 
 const BCrumb = [
   {
-    to: "/",
+    to: "/Anasayfa",
     title: "Admin Menü",
   },
   {

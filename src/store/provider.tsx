@@ -1,5 +1,5 @@
 "use client";
-import { store } from "./store";
+import { store } from "./storeConfig";
 import { Provider } from "react-redux";
 
 export function Providers({ children }: { children: any }) {

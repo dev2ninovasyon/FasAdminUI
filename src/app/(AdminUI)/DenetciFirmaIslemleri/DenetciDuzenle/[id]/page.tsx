@@ -23,20 +23,14 @@ const Page = () => {
       title="Denetçi Düzenle"
       description="this is Denetçi Düzenle"
     >
-      <ParentCard title="Denetçi Düzenle">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Breadcrumb title="Denetçi Düzenle" items={BCrumb} />
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <ParentCard title="Denetçi">
-                  <DenetciDuzenleForm />
-                </ParentCard>
-              </Grid>
-            </Grid>
-          </Grid>
+      <Breadcrumb title="Denetçi Düzenle" items={BCrumb} />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <ParentCard title="Denetçi">
+            <DenetciDuzenleForm />
+          </ParentCard>
         </Grid>
-      </ParentCard>
+      </Grid>
     </PageContainer>
   );
 };
