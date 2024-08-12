@@ -10,6 +10,7 @@ import Navigation from "@/app/components/layout/horizontal/navbar/Navigation";
 import HorizontalHeader from "@/app/components/layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
+import Forbidden from "./ForbiddenPage/page";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -38,10 +39,11 @@ export default function RootLayout({
 }) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const user = useSelector((state: AppState) => state.userReducer);
   const customizer = useSelector((state: AppState) => state.customizer);
   const theme = useTheme();
 
-  return (
+  return user.id == 1 ? (
     <MainWrapper>
       <title>Fas Admin</title>
       {/* ------------------------------------------- */}
@@ -89,5 +91,7 @@ export default function RootLayout({
         <Customizer />
       </PageWrapper>
     </MainWrapper>
+  ) : (
+    <Forbidden></Forbidden>
   );
 }

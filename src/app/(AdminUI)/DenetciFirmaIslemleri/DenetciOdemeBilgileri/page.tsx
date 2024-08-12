@@ -10,7 +10,7 @@ import OdemeBilgisiTable from "@/app/components/tables/OdemeBilgisiTable";
 
 const BCrumb = [
   {
-    to: "/",
+    to: "/Anasayfa",
     title: "Admin Menü",
   },
   {

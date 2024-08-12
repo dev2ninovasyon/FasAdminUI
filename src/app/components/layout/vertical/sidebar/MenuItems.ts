@@ -64,6 +64,8 @@ import {
   IconBorderStyle2,
   IconLockAccess,
   IconAppWindow,
+  IconKeyframes,
+  IconBuildingSkyscraper,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -74,7 +76,7 @@ const Menuitems: MenuitemsType[] = [
   {
     id: uniqueId(),
     title: "Denetçi İşlemleri",
-    icon: IconPackage,
+    icon: IconBuildingSkyscraper,
     href: "/",
     children: [
       {
@@ -88,6 +90,20 @@ const Menuitems: MenuitemsType[] = [
         title: "Denetci Kullanım Raporu",
         icon: IconPoint,
         href: "/DenetciKullanimRapor",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    title: "Format İşlemleri",
+    icon: IconKeyframes,
+    href: "/",
+    children: [
+      {
+        id: uniqueId(),
+        title: "Formatlar",
+        icon: IconPoint,
+        href: "/Formatlar",
       },
     ],
   },

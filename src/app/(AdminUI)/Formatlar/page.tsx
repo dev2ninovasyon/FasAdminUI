@@ -3,7 +3,8 @@ import { Box, Grid } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
 import ParentCard from "@/app/components/shared/ParentCard";
-import DenetciDetay from "@/app/components/DenetciIslemleri/DenetciDetay";
+import FormatEkleButton from "@/app/components/FormaIslemleri/FormatEkleButton";
+import FormatTable from "@/app/components/tables/FormatTable";
 
 const BCrumb = [
   {
@@ -11,20 +12,21 @@ const BCrumb = [
     title: "Admin Menü",
   },
   {
-    to: "/DenetciFirmaIslemleri",
-    title: "Denetçi Firma İşlemleri",
+    to: "/Formatlar",
+    title: "Formatlar",
   },
 ];
 
 const Page = () => {
   return (
-    <PageContainer title="Denetçi Detay" description="this is Denetçi Detay">
-      <Breadcrumb title="Denetçi Detay" items={BCrumb} />
-      <ParentCard title="Denetçi Detay">
+    <PageContainer title="Formatlar" description="this is Formatlar">
+      <Breadcrumb title="Formatlar" items={BCrumb} />
+      <ParentCard title="Formatlar">
         <Grid container spacing={3}>
           <Grid item xs={12}>
+            <FormatEkleButton />
             <Box>
-              <DenetciDetay />
+              <FormatTable />
             </Box>
           </Grid>
         </Grid>
