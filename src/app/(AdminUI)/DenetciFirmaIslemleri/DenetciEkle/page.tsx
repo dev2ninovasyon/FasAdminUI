@@ -24,20 +24,14 @@ const BCrumb = [
 const Page = () => {
   return (
     <PageContainer title="Denetçi Ekle" description="this is Denetçi Ekle">
-      <ParentCard title="Denetçi Ekle">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Breadcrumb title="Denetçi Ekle" items={BCrumb} />
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <ParentCard title="Yeni Denetçi">
-                  <DenetciEkleForm />
-                </ParentCard>
-              </Grid>
-            </Grid>
-          </Grid>
+      <Breadcrumb title="Denetçi Ekle" items={BCrumb} />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <ParentCard title="Yeni Denetçi">
+            <DenetciEkleForm />
+          </ParentCard>
         </Grid>
-      </ParentCard>
+      </Grid>
     </PageContainer>
   );
 };

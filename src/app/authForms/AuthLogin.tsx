@@ -17,6 +17,7 @@ import { loginType } from "@/app/components/types/auth/auth";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
 import CustomCheckbox from "@/app/components/forms/theme-elements/CustomCheckbox";
+import { url } from "@/api/apiBase";
 
 const AuthLogin: React.FC<loginType> = ({ title, subtitle, subtext }) => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const AuthLogin: React.FC<loginType> = ({ title, subtitle, subtext }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("https://localhost:7264/api/Auth/login", {
+      const response = await fetch(`${url}/Auth/login`, {
         method: "POST",
         headers: {
           accept: "*/*",
