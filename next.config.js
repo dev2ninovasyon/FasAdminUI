@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   modularizeImports: {
     "@mui/icons-material": {
@@ -9,8 +10,7 @@ const nextConfig = {
     //   transform: '@mui/material/{{member}}',
     // },
   },
-  
-  
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

@@ -44,7 +44,6 @@ export const CustomizerSlice = createSlice({
     setDarkMode: (state: StateType, action) => {
       state.activeMode = action.payload;
     },
-
     setDir: (state: StateType, action) => {
       state.activeDir = action.payload;
     },
@@ -53,6 +52,9 @@ export const CustomizerSlice = createSlice({
     },
     setCardShadow: (state: StateType, action) => {
       state.isCardShadow = action.payload;
+    },
+    setCollapse: (state: StateType, action) => {
+      state.isCollapse = action.payload;
     },
     toggleSidebar: (state) => {
       state.isCollapse = !state.isCollapse;
@@ -87,6 +89,7 @@ export const {
   toggleHorizontal,
   setLanguage,
   setCardShadow,
+  setCollapse,
 } = CustomizerSlice.actions;
 
 export default CustomizerSlice.reducer;
