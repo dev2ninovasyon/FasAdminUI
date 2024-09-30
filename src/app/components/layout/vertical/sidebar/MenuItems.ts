@@ -107,6 +107,20 @@ const Menuitems: MenuitemsType[] = [
       },
     ],
   },
+  {
+    id: uniqueId(),
+    title: "Belge Yönetimi",
+    icon: IconKeyframes,
+    href: "/",
+    children: [
+      {
+        id: uniqueId(),
+        title: "Denetim Dosya Belgeleri",
+        icon: IconPoint,
+        href: "/DenetimDosyaBelgeleri",
+      },
+    ],
+  },
 ];
 
 export default Menuitems;
