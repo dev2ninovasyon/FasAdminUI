@@ -11,12 +11,16 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { setCollapse } from "@/store/customizer/CustomizerSlice";
 import ExceleAktarButton from "../button/ExceleAktarButton";
-import { getGenelHesapPlani } from "@/api/GenelHesapPlani/GenelHesapPlani";
+import {
+  getGenelHesapPlani,
+  updateGenelHesapPlaniVerisi,
+} from "@/api/GenelHesapPlani/GenelHesapPlani";
 
 // register Handsontable's modules
 registerAllModules();
 
 interface Veri {
+  id: number;
   kod: string;
   adi: string;
   paraBirimi: string;
@@ -51,9 +55,16 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
     loadStyles();
   }, [customizer.activeMode]);
 
-  const colHeaders = ["Kodu", "Hesap Adı", "Para Birimi"];
+  const colHeaders = ["Id", "Kodu", "Hesap Adı", "Para Birimi"];
 
   const columns = [
+    {
+      type: "numeric",
+      columnSorting: true,
+      readOnly: true,
+      editor: false,
+      className: "htLeft",
+    }, // Id
     {
       type: "text",
       columnSorting: true,
@@ -67,8 +78,6 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
       columnSorting: true,
       className: "htLeft",
       allowInvalid: false,
-      readOnly: true,
-      editor: false,
     }, // Hesap Adı
     {
       type: "text",
@@ -187,6 +196,67 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
     }
   };
 
+  const handleGetRowData = async (row: number) => {
+    if (hotTableComponent.current) {
+      const hotInstance = hotTableComponent.current.hotInstance;
+      const cellMeta = hotInstance.getDataAtRow(row);
+      console.log("Satır Verileri:", cellMeta);
+      return cellMeta;
+    }
+  };
+
+  const handleAfterChange = async (changes: any, source: any) => {
+    //Değişen Cellin Satır Indexi
+    let changedRow = -1;
+    //Değişen Cellin Satır Verileri
+    let changedRowData: any;
+    if (source === "loadData") {
+      return; // Skip this hook on loadData
+    }
+    if (changes) {
+      for (const [row, prop, oldValue, newValue] of changes) {
+        console.log(
+          `Changed cell at row: ${row}, col: ${prop}, from: ${oldValue}, to: ${newValue}`
+        );
+        changedRow = row;
+
+        changedRowData = await handleGetRowData(row);
+
+        //Cell Güncelleme
+        if (changedRow >= 0) {
+          await handleUpdateGenelHesapPlaniVerisi(changedRow);
+          changedRow = -1;
+        }
+      }
+    }
+  };
+
+  const handleUpdateGenelHesapPlaniVerisi = async (row: number) => {
+    const rowData = await handleGetRowData(row);
+    if (rowData[2] == null || rowData[2] == undefined) {
+      rowData[2] == "";
+    }
+    const updatedGenelHesapPlaniVerisi = {
+      adi: rowData[2],
+    };
+
+    try {
+      const result = await updateGenelHesapPlaniVerisi(
+        user.token || "",
+        rowData[0],
+        updatedGenelHesapPlaniVerisi
+      );
+      if (result) {
+        await fetchData();
+        console.log("Genel Hesap Planı Verisi güncelleme başarılı");
+      } else {
+        console.error("Genel Hesap Planı güncelleme başarısız");
+      }
+    } catch (error) {
+      console.error("Bir hata oluştu:", error);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const genelHesapPlaniVerileri = await getGenelHesapPlani(
@@ -197,7 +267,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
 
       const rowsAll: any = [];
       genelHesapPlaniVerileri.forEach((veri: any) => {
-        const newRow: any = [veri.kod, veri.adi, veri.paraBirimi];
+        const newRow: any = [veri.id, veri.kod, veri.adi, veri.paraBirimi];
         rowsAll.push(newRow);
       });
       rowsAll.sort((a: any, b: any) => (a[0] > b[0] ? 1 : -1));
@@ -299,7 +369,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
         height={684}
         colHeaders={colHeaders}
         columns={columns}
-        colWidths={[20, 120, 20]}
+        colWidths={[20, 20, 120, 20]}
         stretchH="all"
         manualColumnResize={true}
         rowHeaders={true}
@@ -307,6 +377,9 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
         autoWrapRow={true}
         minRows={rowCount}
         minCols={8}
+        hiddenColumns={{
+          columns: [0],
+        }}
         filters={true}
         columnSorting={true}
         dropdownMenu={[
@@ -318,6 +391,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
         afterGetColHeader={afterGetColHeader}
         afterGetRowHeader={afterGetRowHeader}
         afterRenderer={afterRenderer}
+        afterChange={handleAfterChange}
         contextMenu={["alignment", "copy"]}
       />
       <Grid container marginTop={2} marginBottom={1}>

@@ -31,7 +31,33 @@ export const getGenelHesapPlani = async (token: string, tip: string) => {
     if (response.ok) {
       return response.json();
     } else {
-      console.error("Dosya Bilgileri getirilemedi");
+      console.error("Genel Hesap Planı getirilemedi");
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};
+
+export const updateGenelHesapPlaniVerisi = async (
+  token: string,
+  id: number,
+  updatedGenelHesapPlani: any
+) => {
+  try {
+    const response = await fetch(`${url}/Mizan/GenelHesapPlani?id=${id}`, {
+      method: "PUT",
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedGenelHesapPlani),
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
     }
   } catch (error) {
     console.error("Bir hata oluştu:", error);
