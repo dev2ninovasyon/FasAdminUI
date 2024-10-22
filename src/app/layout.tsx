@@ -18,6 +18,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/store/storeConfig";
+import { SnackbarProvider } from "notistack";
 import RTL from "./components/layout/shared/customizer/RTL";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
@@ -32,7 +33,14 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
           <RTL direction={customizer.activeDir}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            {children}
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+            >
+              {children}
+            </SnackbarProvider>
           </RTL>
         </ThemeProvider>
       </NextAppDirEmotionCacheProvider>

@@ -67,6 +67,7 @@ import {
   IconKeyframes,
   IconBuildingSkyscraper,
   IconTemplate,
+  IconBarcode,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -113,6 +114,12 @@ const Menuitems: MenuitemsType[] = [
     title: "Genel Hesap Planı",
     icon: IconTemplate,
     href: "/GenelHesapPlani",
+  },
+  {
+    id: uniqueId(),
+    title: "Hesap Kodları",
+    icon: IconBarcode,
+    href: "/HesapKodlari",
   },
   {
     id: uniqueId(),
