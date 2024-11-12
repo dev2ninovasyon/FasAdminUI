@@ -37,8 +37,15 @@ const HesapKodlari = () => {
     setAlacakBakiyesiVermesiGereken345Grubu,
   ] = useState("");
 
-  const [pozitifGelmesiGereken6Grubu, setPozitifGelmesiGereken6Grubu] =
-    useState("");
+  const [
+    borcBakiyesiVermesiGereken6Grubu,
+    setBorcBakiyesiVermesiGereken6Grubu,
+  ] = useState("");
+
+  const [
+    alacakBakiyesiVermesiGereken6Grubu,
+    setAlacakBakiyesiVermesiGereken6Grubu,
+  ] = useState("");
 
   const [yildizliHesaplar, setYildizliHesaplar] = useState("");
 
@@ -96,8 +103,10 @@ const HesapKodlari = () => {
           setBorcBakiyesiVermesiGereken345Grubu(veri.hesaplar);
         } else if (veri.gruplar == "AlacakBakiyesiVermesiGereken345Grubu") {
           setAlacakBakiyesiVermesiGereken345Grubu(veri.hesaplar);
-        } else if (veri.gruplar == "PozitifGelmesiGereken6Grubu") {
-          setPozitifGelmesiGereken6Grubu(veri.hesaplar);
+        } else if (veri.gruplar == "BorcBakiyesiVermesiGereken6Grubu") {
+          setBorcBakiyesiVermesiGereken6Grubu(veri.hesaplar);
+        } else if (veri.gruplar == "AlacakBakiyesiVermesiGereken6Grubu") {
+          setAlacakBakiyesiVermesiGereken6Grubu(veri.hesaplar);
         } else if (veri.gruplar == "YildizliHesaplar") {
           setYildizliHesaplar(veri.hesaplar);
         }
@@ -113,25 +122,25 @@ const HesapKodlari = () => {
 
   return (
     <>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
             htmlFor="BorcBakiyesiVermesiGereken12Grubu"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Borç Bakiyesi Vermesi Gereken 1-2 Grubu
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Borç Bakiyesi Vermesi Gereken 1-2 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
             id="BorcBakiyesiVermesiGereken12Grubu"
             fullWidth
@@ -144,10 +153,10 @@ const HesapKodlari = () => {
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -161,35 +170,32 @@ const HesapKodlari = () => {
               )
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
             htmlFor="AlacakBakiyesiVermesiGereken12Grubu"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Alacak Bakiyesi Vermesi Gereken 1-2 Grubu
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Alacak Bakiyesi Vermesi Gereken 1-2 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
             id="AlacakBakiyesiVermesiGereken12Grubu"
             fullWidth
@@ -202,10 +208,10 @@ const HesapKodlari = () => {
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -219,35 +225,32 @@ const HesapKodlari = () => {
               )
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
             htmlFor="BorcBakiyesiVermesiGereken345Grubu"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Borç Bakiyesi Vermesi Gereken 3-4-5 Grubu
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Borç Bakiyesi Vermesi Gereken 3-4-5 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
             id="BorcBakiyesiVermesiGereken345Grubu"
             fullWidth
@@ -260,10 +263,10 @@ const HesapKodlari = () => {
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -277,35 +280,32 @@ const HesapKodlari = () => {
               )
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
             htmlFor="AlacakBakiyesiVermesiGereken345Grubu"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Alacak Bakiyesi Vermesi Gereken 3-4-5 Grubu
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Alacak Bakiyesi Vermesi Gereken 3-4-5 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
             id="AlacakBakiyesiVermesiGereken345Grubu"
             fullWidth
@@ -318,10 +318,10 @@ const HesapKodlari = () => {
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -335,51 +335,48 @@ const HesapKodlari = () => {
               )
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
-            htmlFor="PozitifGelmesiGereken6Grubu"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            htmlFor="BorcBakiyesiVermesiGereken6Grubu"
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Pozitif Gelmesi Gereken 6 Grubu
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Borç Bakiyesi Vermesi Gereken 6 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
-            id="PozitifGelmesiGereken6Grubu"
+            id="BorcBakiyesiVermesiGereken6Grubu"
             fullWidth
-            value={pozitifGelmesiGereken6Grubu}
+            value={borcBakiyesiVermesiGereken6Grubu}
             onChange={(e: any) =>
-              setPozitifGelmesiGereken6Grubu(e.target.value)
+              setBorcBakiyesiVermesiGereken6Grubu(e.target.value)
             }
           />
         </Grid>
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -388,40 +385,92 @@ const HesapKodlari = () => {
             startIcon={<IconDeviceFloppy width={18} />}
             onClick={() =>
               handleButtonClick(
-                "PozitifGelmesiGereken6Grubu",
-                pozitifGelmesiGereken6Grubu
+                "BorcBakiyesiVermesiGereken6Grubu",
+                borcBakiyesiVermesiGereken6Grubu
               )
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} mb={3}>
+      <Grid container spacing={2} mb={1}>
         <Grid
           item
           xs={12}
-          sm={2}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"center"}
+          justifyContent={"start"}
         >
           <CustomFormLabel
-            htmlFor="YildizliHesaplar"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0, lg: "3px" } }}
+            htmlFor="AlacakBakiyesiVermesiGereken6Grubu"
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="body1" textAlign={"center"}>
-              Yıldızlı Hesaplar
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Alacak Bakiyesi Vermesi Gereken 6 Grubu:
             </Typography>
           </CustomFormLabel>
         </Grid>
-        <Grid item xs={11} sm={8.5}>
+        <Grid item xs={12} sm={12} display={"flex"}>
+          <CustomTextAreaAutoSize
+            id="AlacakBakiyesiVermesiGereken6Grubu"
+            fullWidth
+            value={alacakBakiyesiVermesiGereken6Grubu}
+            onChange={(e: any) =>
+              setAlacakBakiyesiVermesiGereken6Grubu(e.target.value)
+            }
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"start"}
+        >
+          <Button
+            size="medium"
+            variant="outlined"
+            color="primary"
+            startIcon={<IconDeviceFloppy width={18} />}
+            onClick={() =>
+              handleButtonClick(
+                "AlacakBakiyesiVermesiGereken6Grubu",
+                alacakBakiyesiVermesiGereken6Grubu
+              )
+            }
+            sx={{
+              whiteSpace: "nowrap",
+            }}
+          >
+            Kaydet
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} mb={1}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"start"}
+        >
+          <CustomFormLabel
+            htmlFor="YildizliHesaplar"
+            sx={{ mb: { xs: "-10px", sm: 0 } }}
+          >
+            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+              Yıldızlı Hesaplar:
+            </Typography>
+          </CustomFormLabel>
+        </Grid>
+        <Grid item xs={12} sm={12} display={"flex"}>
           <CustomTextAreaAutoSize
             id="YildizliHesaplar"
             fullWidth
@@ -432,10 +481,10 @@ const HesapKodlari = () => {
         <Grid
           item
           xs={12}
-          sm={1.5}
+          sm={12}
           display={"flex"}
           alignItems={"center"}
-          justifyContent={"end"}
+          justifyContent={"start"}
         >
           <Button
             size="medium"
@@ -446,10 +495,7 @@ const HesapKodlari = () => {
               handleButtonClick("YildizliHesaplar", yildizliHesaplar)
             }
             sx={{
-              width: { xs: "100%", lg: "70%" },
-              height: "44px",
               whiteSpace: "nowrap",
-              mb: "3px",
             }}
           >
             Kaydet

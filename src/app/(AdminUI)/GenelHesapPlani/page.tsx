@@ -152,6 +152,7 @@ const Page = () => {
                 textAlign: "center",
                 cursor: "pointer",
                 height: "285px",
+                mt: 7.5,
               }}
             >
               <input {...getInputProps()} />

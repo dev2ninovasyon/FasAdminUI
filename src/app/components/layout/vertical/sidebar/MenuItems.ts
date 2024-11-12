@@ -68,6 +68,8 @@ import {
   IconBuildingSkyscraper,
   IconTemplate,
   IconBarcode,
+  IconNumber,
+  IconNumbers,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -106,6 +108,20 @@ const Menuitems: MenuitemsType[] = [
         title: "Formatlar",
         icon: IconPoint,
         href: "/Formatlar",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    title: "Formül İşlemleri",
+    icon: IconNumbers,
+    href: "/",
+    children: [
+      {
+        id: uniqueId(),
+        title: "Formüller",
+        icon: IconPoint,
+        href: "/Formuller",
       },
     ],
   },

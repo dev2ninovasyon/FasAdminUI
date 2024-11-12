@@ -11,26 +11,27 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { setCollapse } from "@/store/customizer/CustomizerSlice";
 import ExceleAktarButton from "../button/ExceleAktarButton";
-import {
-  getGenelHesapPlani,
-  updateGenelHesapPlaniVerisi,
-} from "@/api/GenelHesapPlani/GenelHesapPlani";
+import { getFormuller, updateFormuller } from "@/api/Formuller/Formuller";
+import { enqueueSnackbar } from "notistack";
 
 // register Handsontable's modules
 registerAllModules();
 
 interface Veri {
-  id: number;
-  kod: string;
-  adi: string;
-  paraBirimi: string;
+  formulId: number;
+  kalemAdi: string;
+  formul: string;
+  dipnot: string;
+  kirilim: number;
+  kgkExcelSatirNo: number;
 }
 
 interface Props {
-  fileType: string;
+  denetimTuru: string;
+  finansalTabloAdi: string;
 }
 
-const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
+const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
   const hotTableComponent = useRef<any>(null);
 
   const user = useSelector((state: AppState) => state.userReducer);
@@ -55,7 +56,39 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
     loadStyles();
   }, [customizer.activeMode]);
 
-  const colHeaders = ["Id", "Kodu", "Hesap Adı", "Para Birimi"];
+  const integerValidator = (
+    value: string,
+    callback: (value: boolean) => void
+  ) => {
+    const integerRegex = /^\d+$/; // Regex to match integers only
+    setTimeout(() => {
+      if (integerRegex.test(value)) {
+        callback(true);
+      } else {
+        enqueueSnackbar("Hatalı Sayı Girişi. Tam Sayı Girmelisiniz.", {
+          variant: "warning",
+          autoHideDuration: 5000,
+          style: {
+            backgroundColor:
+              customizer.activeMode === "dark"
+                ? theme.palette.warning.dark
+                : theme.palette.warning.main,
+            maxWidth: "720px",
+          },
+        });
+        callback(false);
+      }
+    }, 1000);
+  };
+
+  const colHeaders = [
+    "FormulId",
+    "Kalem Adı",
+    "Formül",
+    "Dipnot",
+    "Kırılım",
+    "Kgk Excel Satır Numarası",
+  ];
 
   const columns = [
     {
@@ -64,29 +97,40 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
       readOnly: true,
       editor: false,
       className: "htLeft",
-    }, // Id
+    }, // Formul Id
     {
       type: "text",
       columnSorting: true,
-      className: "htLeft",
-      allowInvalid: false,
       readOnly: true,
       editor: false,
-    }, // Kodu
+      className: "htLeft",
+    }, // Kalem Adı
     {
       type: "text",
       columnSorting: true,
       className: "htLeft",
       allowInvalid: false,
-    }, // Hesap Adı
+    }, // Formül
     {
       type: "text",
       columnSorting: true,
       className: "htLeft",
       allowInvalid: false,
-      readOnly: true,
-      editor: false,
-    }, // Para Birimi
+    }, // Dipnot
+    {
+      type: "numeric",
+      columnSorting: true,
+      className: "htLeft",
+      validator: integerValidator,
+      allowInvalid: false,
+    }, // Kırılım
+    {
+      type: "numeric",
+      columnSorting: true,
+      className: "htLeft",
+      validator: integerValidator,
+      allowInvalid: false,
+    }, // Kgk Excel Satır Numarası
   ];
 
   const afterGetColHeader = (col: any, TH: any) => {
@@ -224,33 +268,47 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
 
         //Cell Güncelleme
         if (changedRow >= 0) {
-          await handleUpdateGenelHesapPlaniVerisi(changedRow);
+          await handleUpdateFormulVerileri(changedRow);
           changedRow = -1;
         }
       }
     }
   };
 
-  const handleUpdateGenelHesapPlaniVerisi = async (row: number) => {
+  const handleUpdateFormulVerileri = async (row: number) => {
     const rowData = await handleGetRowData(row);
     if (rowData[2] == null || rowData[2] == undefined) {
       rowData[2] == "";
     }
-    const updatedGenelHesapPlaniVerisi = {
-      adi: rowData[2],
-    };
+    if (rowData[3] == null || rowData[3] == undefined) {
+      rowData[3] == "";
+    }
+    if (rowData[4] == null || rowData[4] == undefined) {
+      rowData[4] == 0;
+    }
+    if (rowData[5] == null || rowData[5] == undefined) {
+      rowData[5] == 0;
+    }
 
+    const updatedFormulVerileri = {
+      formulId: rowData[0],
+      kalemAdi: rowData[1],
+      formul: rowData[2],
+      dipnot: rowData[3],
+      kirilim: rowData[4],
+      kgkExcelSatirNo: rowData[5],
+    };
+    console.log("xxx" + JSON.stringify(updatedFormulVerileri));
     try {
-      const result = await updateGenelHesapPlaniVerisi(
+      const result = await updateFormuller(
         user.token || "",
-        rowData[0],
-        updatedGenelHesapPlaniVerisi
+        updatedFormulVerileri
       );
       if (result) {
         await fetchData();
-        console.log("Genel Hesap Planı Verisi güncelleme başarılı");
+        console.log("Formül güncelleme başarılı");
       } else {
-        console.error("Genel Hesap Planı güncelleme başarısız");
+        console.error("Formül güncelleme başarısız");
       }
     } catch (error) {
       console.error("Bir hata oluştu:", error);
@@ -259,18 +317,25 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
 
   const fetchData = async () => {
     try {
-      const genelHesapPlaniVerileri = await getGenelHesapPlani(
+      const FormulVerileri = await getFormuller(
         user.token || "",
-        fileType
+        denetimTuru,
+        finansalTabloAdi
       );
-      console.log(genelHesapPlaniVerileri);
 
       const rowsAll: any = [];
-      genelHesapPlaniVerileri.forEach((veri: any) => {
-        const newRow: any = [veri.id, veri.kod, veri.adi, veri.paraBirimi];
+      FormulVerileri.forEach((veri: any) => {
+        const newRow: any = [
+          veri.formulId,
+          veri.kalemAdi,
+          veri.formul,
+          veri.dipnot,
+          veri.kirilim,
+          veri.kgkExcelSatirNo,
+        ];
         rowsAll.push(newRow);
       });
-      rowsAll.sort((a: any, b: any) => (a[0] > b[0] ? 1 : -1));
+      rowsAll.sort((a: any, b: any) => (a[5] > b[5] ? 1 : -1));
 
       setRowCount(rowsAll.length);
       setFetchedData(rowsAll);
@@ -285,7 +350,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
 
   useEffect(() => {
     fetchData();
-  }, [fileType]);
+  }, [denetimTuru, finansalTabloAdi]);
 
   const handleDownload = () => {
     const hotTableInstance = hotTableComponent.current.hotInstance;
@@ -328,7 +393,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
         const blob = new Blob([buffer], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
-        saveAs(blob, "GenelHesapPlani.xlsx");
+        saveAs(blob, `Formuller${denetimTuru}${finansalTabloAdi}.xlsx`);
         console.log("Excel dosyası başarıyla oluşturuldu");
       } catch (error) {
         console.error("Excel dosyası oluşturulurken bir hata oluştu:", error);
@@ -369,7 +434,7 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
         height={684}
         colHeaders={colHeaders}
         columns={columns}
-        colWidths={[20, 20, 120, 20]}
+        colWidths={[40, 120, 100, 40, 40, 40]}
         stretchH="all"
         manualColumnResize={true}
         rowHeaders={true}
@@ -414,4 +479,4 @@ const GenelHesapPlani: React.FC<Props> = ({ fileType }) => {
   );
 };
 
-export default GenelHesapPlani;
+export default Formuller;
