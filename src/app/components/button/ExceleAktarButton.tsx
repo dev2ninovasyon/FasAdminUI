@@ -16,7 +16,7 @@ const ExceleAktarButton: React.FC<Props> = ({ handleDownload }) => {
       onClick={() => handleDownload()}
       sx={{ width: "100%" }}
     >
-      Excel'e Aktar
+      Excel&apos;e Aktar
     </Button>
   );
 };

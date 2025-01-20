@@ -76,27 +76,6 @@ export const createDosya = async (createdDenetci: any) => {
   }
 };
 
-export const createKullanici = async (createdKullanici: any) => {
-  try {
-    const response = await fetch(`${url}/Kullanici`, {
-      method: "POST",
-      headers: {
-        accept: "*/*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(createdKullanici),
-    });
-
-    if (response.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("Bir hata oluştu:", error);
-  }
-};
-
 export const updateDosya = async (id: any, updatedDosya: any) => {
   try {
     const response = await fetch(`${url}/DenetimDosyaBelgeleri/${id}`, {
@@ -106,25 +85,6 @@ export const updateDosya = async (id: any, updatedDosya: any) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedDosya),
-    });
-
-    if (response.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("Bir hata oluştu:", error);
-  }
-};
-
-export const deleteDenetciById = async (id: number) => {
-  try {
-    const response = await fetch(`${url}/Denetci/${id}`, {
-      method: "DELETE",
-      headers: {
-        accept: "application/json",
-      },
     });
 
     if (response.ok) {

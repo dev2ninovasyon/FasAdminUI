@@ -59,7 +59,7 @@ export const createDenetci = async (createdDenetci: any) => {
 
 export const createKullanici = async (createdKullanici: any) => {
   try {
-    const response = await fetch(`${url}/Kullanici`, {
+    const response = await fetch(`${url}/Kullanici/AnaKullanici`, {
       method: "POST",
       headers: {
         accept: "*/*",

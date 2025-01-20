@@ -358,7 +358,7 @@ const OdemeBilgisiTable = () => {
       </TableContainer>
 
       {rows.map((row) => (
-        <Grid container rowSpacing={3}>
+        <Grid container rowSpacing={3} key={row.denetciAdi}>
           <Grid item xs={12} sm={3} display="flex" alignItems="center">
             <Typography variant="h6">Modüller: {}</Typography>
           </Grid>

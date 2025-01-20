@@ -56,6 +56,7 @@ import {
   IconShoppingCart,
   IconAperture,
   IconLayout,
+  IconUpload,
   IconSettings,
   IconHelp,
   IconZoomCode,
@@ -136,6 +137,20 @@ const Menuitems: MenuitemsType[] = [
     title: "Hesap Kodları",
     icon: IconBarcode,
     href: "/HesapKodlari",
+  },
+  {
+    id: uniqueId(),
+    title: "Veri İşlemleri",
+    icon: IconUpload,
+    href: "/",
+    children: [
+      {
+        id: uniqueId(),
+        title: "Döviz Kurları",
+        icon: IconPoint,
+        href: "/DovizKurlari",
+      },
+    ],
   },
   {
     id: uniqueId(),
