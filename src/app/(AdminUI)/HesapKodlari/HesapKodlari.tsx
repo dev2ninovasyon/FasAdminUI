@@ -135,7 +135,7 @@ const HesapKodlari = () => {
             htmlFor="BorcBakiyesiVermesiGereken12Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Borç Bakiyesi Vermesi Gereken 1-2 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -190,7 +190,7 @@ const HesapKodlari = () => {
             htmlFor="AlacakBakiyesiVermesiGereken12Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Alacak Bakiyesi Vermesi Gereken 1-2 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -245,7 +245,7 @@ const HesapKodlari = () => {
             htmlFor="BorcBakiyesiVermesiGereken345Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Borç Bakiyesi Vermesi Gereken 3-4-5 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -300,7 +300,7 @@ const HesapKodlari = () => {
             htmlFor="AlacakBakiyesiVermesiGereken345Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Alacak Bakiyesi Vermesi Gereken 3-4-5 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -355,7 +355,7 @@ const HesapKodlari = () => {
             htmlFor="BorcBakiyesiVermesiGereken6Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Borç Bakiyesi Vermesi Gereken 6 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -410,7 +410,7 @@ const HesapKodlari = () => {
             htmlFor="AlacakBakiyesiVermesiGereken6Grubu"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Alacak Bakiyesi Vermesi Gereken 6 Grubu:
             </Typography>
           </CustomFormLabel>
@@ -465,7 +465,7 @@ const HesapKodlari = () => {
             htmlFor="YildizliHesaplar"
             sx={{ mb: { xs: "-10px", sm: 0 } }}
           >
-            <Typography variant="h6" textAlign={"left"} paddingLeft={"8px"}>
+            <Typography variant="h6" textAlign={"left"}>
               Yıldızlı Hesaplar:
             </Typography>
           </CustomFormLabel>
