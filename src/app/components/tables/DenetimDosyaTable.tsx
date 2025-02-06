@@ -21,10 +21,7 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
-import {
-  deleteDenetciById,
-  getDosya,
-} from "@/api/DenetimDosyaBelgeleri/DenetimDosyaIslemleri";
+import { getDosya } from "@/api/DenetimDosyaBelgeleri/DenetimDosyaIslemleri";
 import { useRouter } from "next/navigation";
 
 interface RowData {
@@ -58,16 +55,11 @@ const DenetimDosyaTable = () => {
     setAnchorEl(null);
   };
 
-  const handleKullaniciEkle = () => {
-    handleClose();
-    router.push(`/DenetciFirmaIslemleri/KullaniciEkle/${selectedId}`);
-  };
-
   const handleDuzenle = () => {
     handleClose();
     router.push(`/DenetimDosyaBelgeleri/DosyaDuzenle/${selectedId}`);
   };
-
+  /*
   const handleDelete = async () => {
     handleClose();
     if (selectedId === null) return;
@@ -83,7 +75,7 @@ const DenetimDosyaTable = () => {
       console.error("Bir hata oluştu:", error);
     }
   };
-
+*/
   const fetchData = async () => {
     try {
       const denetciVerileri = await getDosya();
@@ -267,7 +259,7 @@ const DenetimDosyaTable = () => {
                         </ListItemIcon>
                         Düzenle
                       </MenuItem>
-                      <MenuItem onClick={handleDelete}>
+                      <MenuItem>
                         <ListItemIcon>
                           <IconTrash width={18} />
                         </ListItemIcon>
