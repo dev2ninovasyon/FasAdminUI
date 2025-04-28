@@ -5,13 +5,13 @@ import { useSelector } from "@/store/hooks";
 import { usePathname } from "next/navigation";
 
 // mui imports
-import Collapse from '@mui/material/Collapse';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { Theme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { styled, useTheme } from '@mui/material/styles';
+import Collapse from "@mui/material/Collapse";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { Theme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { styled, useTheme } from "@mui/material/styles";
 
 // custom imports
 import NavItem from "../NavItem";
@@ -97,9 +97,9 @@ export default function NavCollapse({
     color:
       open && level < 2
         ? "white"
-        : `inherit` && level > 1 && open
+        : level > 1 && open
         ? theme.palette.primary.main
-        : theme.palette.text.secondary,
+        : "inherit",
     borderRadius: `${customizer.borderRadius}px`,
   }));
 
