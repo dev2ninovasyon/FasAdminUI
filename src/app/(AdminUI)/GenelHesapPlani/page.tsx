@@ -44,7 +44,7 @@ const Page = () => {
   const borderRadius = theme.shape.borderRadius;
   const smDown = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
 
-  const [fileType, setFileType] = useState("BobiHesapPlani");
+  const [fileType, setFileType] = useState("Bobi");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFileType(event.target.value);
@@ -138,8 +138,8 @@ const Page = () => {
                   marginRight: "16px",
                 }}
               >
-                <MenuItem value={"BobiHesapPlani"}>Bobi Hesap Planı</MenuItem>
-                <MenuItem value={"TfrsHesapPlani"}>Tfrs Hesap Planı</MenuItem>
+                <MenuItem value={"Bobi"}>Bobi Hesap Planı</MenuItem>
+                <MenuItem value={"Tfrs"}>Tfrs Hesap Planı</MenuItem>
               </CustomSelect>
             </Stack>
             <Box

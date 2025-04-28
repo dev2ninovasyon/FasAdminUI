@@ -42,10 +42,10 @@ import {
   SourceEditing,
   Table,
   TableCaption,
-  TableCellProperties,
   TableColumnResize,
   TableProperties,
   TableToolbar,
+  TableCellProperties,
   TextPartLanguage,
   TextTransformation,
   Undo,
@@ -124,6 +124,7 @@ const RaporGorusEditor: React.FC<RaporGorusEditorProps> = ({
         "textPartLanguage",
         "|",
         "heading",
+
         "|",
         "bold",
         "italic",
@@ -132,6 +133,9 @@ const RaporGorusEditor: React.FC<RaporGorusEditorProps> = ({
         "pageBreak",
         "link",
         "insertTable",
+        "mergeTableCells",
+        "tableColumn",
+        "tableRow",
         "|",
         "bulletedList",
         "numberedList",
@@ -236,6 +240,7 @@ const RaporGorusEditor: React.FC<RaporGorusEditorProps> = ({
     },
     language: "tr",
     placeholder: "Type or paste your content here!",
+    licenseKey: "GPL",
     translations: [translations],
   };
 
