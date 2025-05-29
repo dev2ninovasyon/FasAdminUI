@@ -1,27 +1,23 @@
-import {
-  Box,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  Button,
-  Stack,
-} from "@mui/material";
-import Link from "next/link";
+import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
+import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import { Box, Typography, Button, Stack, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingButton } from "@mui/lab";
 import { IconTrash } from "@tabler/icons-react";
-import { useDispatch } from "@/store/hooks";
+import { useDispatch, useSelector } from "@/store/hooks";
 import { setId, setToken } from "@/store/user/UserSlice";
 import { loginType } from "@/app/components/types/auth/auth";
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
-import CustomCheckbox from "@/app/components/forms/theme-elements/CustomCheckbox";
 import { url } from "@/api/apiBase";
+import { enqueueSnackbar } from "notistack";
+import { AppState } from "@/store/store";
 
 const AuthLogin: React.FC<loginType> = ({ title, subtitle, subtext }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const customizer = useSelector((state: AppState) => state.customizer);
+  const theme = useTheme();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +49,18 @@ const AuthLogin: React.FC<loginType> = ({ title, subtitle, subtext }) => {
           router.push("/ForbiddenPage");
         }
       } else {
-        console.error("Giriş başarısız");
+        setIsLoggedIn(false);
+        enqueueSnackbar("Giriş Başarısız", {
+          variant: "error",
+          autoHideDuration: 5000,
+          style: {
+            backgroundColor:
+              customizer.activeMode === "dark"
+                ? theme.palette.error.light
+                : theme.palette.error.main,
+            maxWidth: "720px",
+          },
+        });
       }
     } catch (error) {
       console.error("Bir hata oluştu:", error);
@@ -90,30 +97,6 @@ const AuthLogin: React.FC<loginType> = ({ title, subtitle, subtext }) => {
             onChange={(e: any) => setPassword(e.target.value)}
           />
         </Box>
-        <Stack
-          justifyContent="space-between"
-          direction="row"
-          alignItems="center"
-          my={2}
-        >
-          <FormGroup>
-            <FormControlLabel
-              control={<CustomCheckbox defaultChecked />}
-              label="Bu Cihazı Hatırla"
-            />
-          </FormGroup>
-          <Typography
-            component={Link}
-            href="/auth/auth1/forgot-password"
-            fontWeight="500"
-            sx={{
-              textDecoration: "none",
-              color: "primary.main",
-            }}
-          >
-            Şifremi Unuttum
-          </Typography>
-        </Stack>
       </Stack>
       <Box>
         {!isLoggedIn && (

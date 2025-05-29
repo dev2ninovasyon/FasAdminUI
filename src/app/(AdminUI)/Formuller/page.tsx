@@ -1,5 +1,5 @@
 "use client";
-import { Grid, MenuItem } from "@mui/material";
+import { Box, Button, Grid, MenuItem, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import PageContainer from "@/app/components/container/PageContainer";
 import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
@@ -19,6 +19,8 @@ const BCrumb = [
 ];
 
 const Page = () => {
+  const smDown = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+
   const [denetimTuru, setDenetimTuru] = useState("Bobi");
 
   const handleChangeDenetimTuru = (
@@ -33,18 +35,31 @@ const Page = () => {
     setFinansalTabloAdi(event.target.value);
   };
 
+  const [kaydetTiklandimi, setKaydetTiklandimi] = useState(false);
+
   return (
     <PageContainer title="Formüller" description="this is Formüller">
       <Breadcrumb title="Formüller" items={BCrumb} />
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={12}>
+        <Grid
+          item
+          xs={12}
+          lg={12}
+          sx={{
+            display: "flex",
+            flexDirection: smDown ? "column" : "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 1,
+          }}
+        >
           <CustomSelect
             labelId="denetimTuru"
             id="denetimTuru"
             size="small"
             height={"36px"}
-            sx={{ marginRight: 2 }}
             value={denetimTuru}
+            sx={{ width: smDown ? "100%" : "auto" }}
             onChange={handleChangeDenetimTuru}
           >
             <MenuItem value={"Bobi"}>Denetim Türü: Bobi</MenuItem>
@@ -78,6 +93,7 @@ const Page = () => {
             size="small"
             value={finansalTabloAdi}
             onChange={handleChangeTabloAdi}
+            sx={{ width: smDown ? "100%" : "auto" }}
             height={"36px"}
           >
             <MenuItem value={"finansaldurum"}>
@@ -92,14 +108,42 @@ const Page = () => {
             </MenuItem>
             <MenuItem value={"ozkaynak"}>Tablo Adı: Özkaynak</MenuItem>
           </CustomSelect>
+          <Box flex={1}></Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: smDown ? "column" : "row",
+              gap: 1,
+              width: smDown ? "100%" : "auto",
+            }}
+          >
+            <Button
+              type="button"
+              size="medium"
+              disabled={kaydetTiklandimi}
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setKaydetTiklandimi(true);
+              }}
+            >
+              Kaydet
+            </Button>
+          </Box>
         </Grid>
         <Grid item xs={12} lg={12}>
           {finansalTabloAdi == "ozkaynak" ? (
-            <FormullerOzkaynak denetimTuru={denetimTuru} />
+            <FormullerOzkaynak
+              denetimTuru={denetimTuru}
+              kaydetTiklandimi={kaydetTiklandimi}
+              setKaydetTiklandimi={setKaydetTiklandimi}
+            />
           ) : (
             <Formuller
               denetimTuru={denetimTuru}
               finansalTabloAdi={finansalTabloAdi}
+              kaydetTiklandimi={kaydetTiklandimi}
+              setKaydetTiklandimi={setKaydetTiklandimi}
             />
           )}
         </Grid>

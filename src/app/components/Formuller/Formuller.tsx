@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { setCollapse } from "@/store/customizer/CustomizerSlice";
-import ExceleAktarButton from "../button/ExceleAktarButton";
+import ExceleAktarButton from "@/app/components/button/ExceleAktarButton";
 import { getFormuller, updateFormuller } from "@/api/Formuller/Formuller";
 import { enqueueSnackbar } from "notistack";
 
@@ -29,9 +29,16 @@ interface Veri {
 interface Props {
   denetimTuru: string;
   finansalTabloAdi: string;
+  kaydetTiklandimi: boolean;
+  setKaydetTiklandimi: (b: boolean) => void;
 }
 
-const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
+const Formuller: React.FC<Props> = ({
+  denetimTuru,
+  finansalTabloAdi,
+  kaydetTiklandimi,
+  setKaydetTiklandimi,
+}) => {
   const hotTableComponent = useRef<any>(null);
 
   const user = useSelector((state: AppState) => state.userReducer);
@@ -42,6 +49,8 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
   const [rowCount, setRowCount] = useState(0);
 
   const [fetchedData, setFetchedData] = useState<Veri[]>([]);
+
+  const [endRow, setEndRow] = useState(-1);
 
   useEffect(() => {
     const loadStyles = async () => {
@@ -61,24 +70,11 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
     callback: (value: boolean) => void
   ) => {
     const integerRegex = /^\d+$/; // Regex to match integers only
-    setTimeout(() => {
-      if (integerRegex.test(value)) {
-        callback(true);
-      } else {
-        enqueueSnackbar("Hatalı Sayı Girişi. Tam Sayı Girmelisiniz.", {
-          variant: "warning",
-          autoHideDuration: 5000,
-          style: {
-            backgroundColor:
-              customizer.activeMode === "dark"
-                ? theme.palette.warning.dark
-                : theme.palette.warning.main,
-            maxWidth: "720px",
-          },
-        });
-        callback(false);
-      }
-    }, 1000);
+    if (integerRegex.test(value)) {
+      callback(true);
+    } else {
+      callback(false);
+    }
   };
 
   const colHeaders = [
@@ -238,6 +234,10 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
       TD.style.borderRightColor =
         customizer.activeMode === "dark" ? "#171c23" : "#ffffff";
     }
+
+    if (row <= endRow && (value == undefined || value == null || value == "")) {
+      TD.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    }
   };
 
   const handleGetRowData = async (row: number) => {
@@ -249,11 +249,20 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
     }
   };
 
+  const afterPaste = async (data: any, coords: any) => {
+    console.log("Pasted data:", data);
+
+    console.log("Pasted startRow coordinates:", coords[0].startRow);
+    console.log("Pasted endRow coordinates:", coords[0].endRow);
+    console.log("Pasted startCol coordinates:", coords[0].startCol);
+    console.log("Pasted endCol coordinates:", coords[0].endCol);
+
+    if (endRow < coords[0].endRow) {
+      setEndRow(coords[0].endRow);
+    }
+  };
+
   const handleAfterChange = async (changes: any, source: any) => {
-    //Değişen Cellin Satır Indexi
-    let changedRow = -1;
-    //Değişen Cellin Satır Verileri
-    let changedRowData: any;
     if (source === "loadData") {
       return; // Skip this hook on loadData
     }
@@ -262,53 +271,84 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
         console.log(
           `Changed cell at row: ${row}, col: ${prop}, from: ${oldValue}, to: ${newValue}`
         );
-        changedRow = row;
-
-        changedRowData = await handleGetRowData(row);
-
-        //Cell Güncelleme
-        if (changedRow >= 0) {
-          await handleUpdateFormulVerileri(changedRow);
-          changedRow = -1;
-        }
       }
     }
   };
 
-  const handleUpdateFormulVerileri = async (row: number) => {
-    const rowData = await handleGetRowData(row);
-    if (rowData[2] == null || rowData[2] == undefined) {
-      rowData[2] == "";
-    }
-    if (rowData[3] == null || rowData[3] == undefined) {
-      rowData[3] == "";
-    }
-    if (rowData[4] == null || rowData[4] == undefined) {
-      rowData[4] == 0;
-    }
-    if (rowData[5] == null || rowData[5] == undefined) {
-      rowData[5] == 0;
+  const handleUpdateFormulVerileri = async () => {
+    if (fetchedData.filter((item: any) => item[0]).length == 0) {
+      return;
     }
 
-    const updatedFormulVerileri = {
-      formulId: rowData[0],
-      kalemAdi: rowData[1],
-      formul: rowData[2],
-      dipnot: rowData[3],
-      kirilim: rowData[4],
-      kgkExcelSatirNo: rowData[5],
-    };
-    console.log("xxx" + JSON.stringify(updatedFormulVerileri));
+    const keys = [
+      "formulId",
+      "kalemAdi",
+      "formul",
+      "dipnot",
+      "kirilim",
+      "kgkExcelSatirNo",
+    ];
+
+    const jsonData = fetchedData
+      .filter((item: any) => item[0])
+      .map((item: any) => {
+        let obj: { [key: string]: any } = {};
+        keys.forEach((key, index) => {
+          if (key === "kirilim" || key === "kgkExcelSatirNo") {
+            if (
+              item[index] == undefined ||
+              item[index] == null ||
+              item[index] == ""
+            ) {
+              obj[key] = 0.0;
+            } else {
+              obj[key] = item[index];
+            }
+          } else {
+            if (
+              item[index] == undefined ||
+              item[index] == null ||
+              item[index] == ""
+            ) {
+              obj[key] = "";
+            } else {
+              obj[key] = item[index];
+            }
+          }
+        });
+
+        return obj;
+      });
+
+    console.log(JSON.stringify(jsonData));
+
     try {
-      const result = await updateFormuller(
-        user.token || "",
-        updatedFormulVerileri
-      );
+      const result = await updateFormuller(user.token || "", jsonData);
       if (result) {
         await fetchData();
-        console.log("Formül güncelleme başarılı");
+        enqueueSnackbar("Kaydedildi", {
+          variant: "success",
+          autoHideDuration: 5000,
+          style: {
+            backgroundColor:
+              customizer.activeMode === "dark"
+                ? theme.palette.success.light
+                : theme.palette.success.main,
+            maxWidth: "720px",
+          },
+        });
       } else {
-        console.error("Formül güncelleme başarısız");
+        enqueueSnackbar("Kaydedilemedi", {
+          variant: "error",
+          autoHideDuration: 5000,
+          style: {
+            backgroundColor:
+              customizer.activeMode === "dark"
+                ? theme.palette.error.light
+                : theme.palette.error.main,
+            maxWidth: "720px",
+          },
+        });
       }
     } catch (error) {
       console.error("Bir hata oluştu:", error);
@@ -316,6 +356,7 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
   };
 
   const fetchData = async () => {
+    setEndRow(-1);
     try {
       const FormulVerileri = await getFormuller(
         user.token || "",
@@ -351,6 +392,13 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
   useEffect(() => {
     fetchData();
   }, [denetimTuru, finansalTabloAdi]);
+
+  useEffect(() => {
+    if (kaydetTiklandimi) {
+      handleUpdateFormulVerileri();
+      setKaydetTiklandimi(false);
+    }
+  }, [kaydetTiklandimi]);
 
   const handleDownload = () => {
     const hotTableInstance = hotTableComponent.current.hotInstance;
@@ -455,6 +503,7 @@ const Formuller: React.FC<Props> = ({ denetimTuru, finansalTabloAdi }) => {
         licenseKey="non-commercial-and-evaluation" // For non-commercial use only
         afterGetColHeader={afterGetColHeader}
         afterGetRowHeader={afterGetRowHeader}
+        afterPaste={afterPaste}
         afterRenderer={afterRenderer}
         afterChange={handleAfterChange}
         contextMenu={["alignment", "copy"]}
