@@ -1,9 +1,9 @@
 "use client";
 import { Grid, MenuItem } from "@mui/material";
 import { useState } from "react";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
-import CustomSelect from "@/app/components/forms/theme-elements/CustomSelect";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
+import CustomSelect from "@/app/components/Forms/ThemeElements/CustomSelect";
 import RaporGorus from "@/app/components/Gorusler/RaporGorus";
 
 const BCrumb = [

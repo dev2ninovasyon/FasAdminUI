@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { IconTrash, IconSend, IconPlus, IconX } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import CustomTextField from "../forms/theme-elements/CustomTextField";
+import CustomTextField from "../Forms/ThemeElements/CustomTextField";
 
 const DenetciSatisEkleButton = () => {
   //const [showDrawer2, setShowDrawer2] = useState(false);

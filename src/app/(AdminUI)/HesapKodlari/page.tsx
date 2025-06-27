@@ -1,7 +1,7 @@
 "use client";
 import { Grid } from "@mui/material";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
 import HesapKodlari from "./HesapKodlari";
 const BCrumb = [
   {

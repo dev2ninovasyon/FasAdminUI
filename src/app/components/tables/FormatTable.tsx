@@ -12,7 +12,7 @@ import {
   IconButton,
   ListItemIcon,
 } from "@mui/material";
-import BlankCard from "../shared/BlankCard";
+import BlankCard from "../Shared/BlankCard";
 import {
   IconCash,
   IconDotsVertical,

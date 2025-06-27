@@ -1,12 +1,12 @@
 "use client";
 import { Box, Grid } from "@mui/material";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
-import ParentCard from "@/app/components/shared/ParentCard";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
+import ParentCard from "@/app/components/Shared/ParentCard";
 import DenetciciEkleButton from "@/app/components/DenetciIslemleri/DenetciEkleButton";
-import DenetciTable from "@/app/components/tables/DenetciTable";
+import DenetciTable from "@/app/components/Tables/DenetciTable";
 import DenetciSatisEkleButton from "@/app/components/DenetciIslemleri/DenetciSatisEkleButton";
-import OdemeBilgisiTable from "@/app/components/tables/OdemeBilgisiTable";
+import OdemeBilgisiTable from "@/app/components/Tables/OdemeBilgisiTable";
 
 const BCrumb = [
   {

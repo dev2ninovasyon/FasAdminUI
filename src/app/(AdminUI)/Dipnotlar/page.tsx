@@ -7,7 +7,7 @@ import { Divider, Grid, MenuItem, Tab, useTheme } from "@mui/material";
 import { AppState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import CustomSelect from "@/app/components/forms/theme-elements/CustomSelect";
+import CustomSelect from "@/app/components/Forms/ThemeElements/CustomSelect";
 import RaporDipnot from "@/app/components/Dipnotlar/RaporDipnot";
 
 const BCrumb = [

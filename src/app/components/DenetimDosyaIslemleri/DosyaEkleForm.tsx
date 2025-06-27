@@ -1,7 +1,7 @@
 import { Grid, Button } from "@mui/material";
 import React, { useState } from "react";
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import CustomFormLabel from "@/app/components/Forms/ThemeElements/CustomFormLabel";
+import CustomTextField from "@/app/components/Forms/ThemeElements/CustomTextField";
 import { useRouter } from "next/navigation";
 import { createDosya } from "@/api/DenetimDosyaBelgeleri/DenetimDosyaIslemleri";
 
