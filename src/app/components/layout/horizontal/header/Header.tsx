@@ -10,13 +10,13 @@ import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "@/store/hooks";
 import { toggleMobileSidebar } from "@/store/customizer/CustomizerSlice";
 import { IconMenu2 } from "@tabler/icons-react";
-import Notifications from "../../vertical/header/Notification";
+import Notifications from "../../Vertical/Header/Notification";
 
-import Profile from "../../vertical/header/Profile";
-import Search from "../../vertical/header/Search";
-import Language from "../../vertical/header/Language";
-import Navigation from "../../vertical/header/Navigation";
-import Logo from "../../shared/logo/Logo";
+import Profile from "../../Vertical/Header/Profile";
+import Search from "../../Vertical/Header/Search";
+import Language from "../../Vertical/Header/Language";
+import Navigation from "../../Vertical/Header/Navigation";
+import Logo from "../../Shared/Logo/Logo";
 import { AppState } from "@/store/store";
 
 const Header = () => {

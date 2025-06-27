@@ -19,7 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/store/storeConfig";
 import { SnackbarProvider } from "notistack";
-import RTL from "./components/layout/shared/customizer/RTL";
+import RTL from "./components/Layout/Shared/Customizer/RTL";
 
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
   const theme = ThemeSettings();

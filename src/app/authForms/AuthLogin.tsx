@@ -1,5 +1,5 @@
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import CustomFormLabel from "@/app/components/Forms/ThemeElements/CustomFormLabel";
+import CustomTextField from "@/app/components/Forms/ThemeElements/CustomTextField";
 import { Box, Typography, Button, Stack, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { LoadingButton } from "@mui/lab";
 import { IconTrash } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "@/store/hooks";
 import { setId, setToken } from "@/store/user/UserSlice";
-import { loginType } from "@/app/components/types/auth/auth";
+import { loginType } from "@/app/components/Types/auth/auth";
 import { url } from "@/api/apiBase";
 import { enqueueSnackbar } from "notistack";
 import { AppState } from "@/store/store";

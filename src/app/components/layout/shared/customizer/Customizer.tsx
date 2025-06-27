@@ -23,7 +23,7 @@ import {
   setCardShadow,
 } from "@/store/customizer/CustomizerSlice";
 import { AppState } from "@/store/store";
-import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
+import Scrollbar from "@/app/components/CustomScroll/Scrollbar";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import SwipeLeftAltTwoToneIcon from "@mui/icons-material/SwipeLeftAltTwoTone";

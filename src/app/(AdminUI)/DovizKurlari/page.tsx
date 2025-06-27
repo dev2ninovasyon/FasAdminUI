@@ -1,7 +1,7 @@
 "use client";
 import { Button, Grid, useTheme } from "@mui/material";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
 import DovizKurlariOtuzBirAralik from "@/app/components/VeriIslemleri/DovizKurlariOtuzBirAralik";
 import DovizKurlariOtuzAralik from "@/app/components/VeriIslemleri/DovizKurlariOtuzAralik";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { createDovizKurlari } from "@/api/VeriIslemleri/DovizKurlari";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { enqueueSnackbar } from "notistack";
-import InfoAlertCart from "@/app/components/alerts/InfoAlertCart";
+import InfoAlertCart from "@/app/components/Alerts/InfoAlertCart";
 
 const BCrumb = [
   {

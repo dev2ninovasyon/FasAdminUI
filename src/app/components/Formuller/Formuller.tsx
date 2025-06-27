@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { setCollapse } from "@/store/customizer/CustomizerSlice";
-import ExceleAktarButton from "@/app/components/button/ExceleAktarButton";
+import ExceleAktarButton from "@/app/components/Buttons/ExceleAktarButton";
 import { getFormuller, updateFormuller } from "@/api/Formuller/Formuller";
 import { enqueueSnackbar } from "notistack";
 

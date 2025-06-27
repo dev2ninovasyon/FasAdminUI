@@ -15,7 +15,7 @@ import * as dropdownData from "./data";
 import { IconBellRinging } from "@tabler/icons-react";
 import { Stack } from "@mui/system";
 import Link from "next/link";
-import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
+import Scrollbar from "@/app/components/CustomScroll/Scrollbar";
 
 const Notifications = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);

@@ -1,7 +1,7 @@
 import { Grid, Button, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import CustomTextAreaAutoSize from "@/app/components/forms/theme-elements/CustomTextAreaAutoSize";
+import CustomFormLabel from "@/app/components/Forms/ThemeElements/CustomFormLabel";
+import CustomTextAreaAutoSize from "@/app/components/Forms/ThemeElements/CustomTextAreaAutoSize";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";

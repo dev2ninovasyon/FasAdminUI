@@ -14,7 +14,7 @@ import { useSelector } from "@/store/hooks";
 
 import RaporDipnotCard from "./RaporDipnotCard";
 import dynamic from "next/dynamic";
-import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import CustomTextField from "@/app/components/Forms/ThemeElements/CustomTextField";
 import {
   getFaaliyetRaporDipnot,
   getRaporDipnot,

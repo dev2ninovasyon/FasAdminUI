@@ -1,10 +1,10 @@
 "use client";
 import { Box, Button, Grid, MenuItem, useMediaQuery } from "@mui/material";
 import { useState } from "react";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
 import Formuller from "@/app/components/Formuller/Formuller";
-import CustomSelect from "@/app/components/forms/theme-elements/CustomSelect";
+import CustomSelect from "@/app/components/Forms/ThemeElements/CustomSelect";
 import FormullerOzkaynak from "@/app/components/Formuller/FormullerOzkaynak";
 
 const BCrumb = [

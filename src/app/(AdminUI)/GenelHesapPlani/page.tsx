@@ -9,15 +9,15 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { url } from "@/api/apiBase";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
-import CustomSelect from "@/app/components/forms/theme-elements/CustomSelect";
+import CustomSelect from "@/app/components/Forms/ThemeElements/CustomSelect";
 import DosyaTable from "@/app/components/GenelHesapPlani/DosyaTable";
 import GenelHesapPlani from "@/app/components/GenelHesapPlani/GenelHesapPlani";
 

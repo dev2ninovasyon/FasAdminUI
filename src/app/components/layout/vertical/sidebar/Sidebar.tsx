@@ -3,13 +3,13 @@ import Drawer from "@mui/material/Drawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import SidebarItems from "./SidebarItems";
-import Logo from "../../shared/logo/Logo";
+import Logo from "../../Shared/Logo/Logo";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
   hoverSidebar,
   toggleMobileSidebar,
 } from "@/store/customizer/CustomizerSlice";
-import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
+import Scrollbar from "@/app/components/CustomScroll/Scrollbar";
 import { Profile } from "./SidebarProfile/Profile";
 import { AppState } from "@/store/store";
 

@@ -1,9 +1,9 @@
 "use client";
 
 import { Grid } from "@mui/material";
-import ParentCard from "@/app/components/shared/ParentCard";
-import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/components/layout/shared/breadcrumb/Breadcrumb";
+import ParentCard from "@/app/components/Shared/ParentCard";
+import PageContainer from "@/app/components/Container/PageContainer";
+import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
 import DenetciEkleForm from "@/app/components/DenetciIslemleri/DenetciEkleForm";
 
 const BCrumb = [

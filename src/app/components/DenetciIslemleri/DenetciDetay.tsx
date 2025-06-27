@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
+import CustomFormLabel from "@/app/components/Forms/ThemeElements/CustomFormLabel";
 import { usePathname } from "next/navigation";
 import { getDenetciById } from "@/api/DenetciIslemleri/DenetciIslemleri";
 
