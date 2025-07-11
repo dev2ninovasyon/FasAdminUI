@@ -218,7 +218,7 @@ const PopUpComponent: React.FC<PopUpProps> = ({
               {dipnotKoduVeriler.filter((veri) => veri.baslikmi)[0]
                 .dipnotKodu != undefined ? (
                 <Typography variant="h4" py={1} px={3}>
-                  Dipnot{" "}
+                  Dipnot
                   {
                     dipnotKoduVeriler.filter((veri) => veri.baslikmi)[0]
                       .dipnotKodu
