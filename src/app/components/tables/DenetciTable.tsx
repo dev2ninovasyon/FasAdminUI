@@ -49,7 +49,7 @@ const DenetciTable = () => {
 
   const handleOdemeBilgileri = () => {
     handleClose();
-    router.push(`/DenetciFirmaIslemleri/DenetciOdemeBilgileri`);
+    router.push(`/DenetciFirmaIslemleri/DenetciOdemeBilgileri/${selectedId}`);
   };
 
   const handleKullaniciEkle = () => {
@@ -139,16 +139,6 @@ const DenetciTable = () => {
               </TableCell>
               <TableCell>
                 <Typography textAlign="center" variant="h6">
-                  Başlangıç Tarihi
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign="center" variant="h6">
-                  Bitiş Tarihi
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign="center" variant="h6">
                   Durum
                 </Typography>
               </TableCell>
@@ -175,7 +165,6 @@ const DenetciTable = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  {" "}
                   <Typography
                     textAlign="center"
                     variant="subtitle1"
@@ -185,7 +174,6 @@ const DenetciTable = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  {" "}
                   <Typography
                     textAlign="center"
                     variant="subtitle1"
@@ -194,27 +182,6 @@ const DenetciTable = () => {
                     {row.kayitTarihi.split("T")[0]}
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  {" "}
-                  <Typography
-                    textAlign="center"
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    {row.baslangicTarihi}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <Typography
-                    textAlign="center"
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    {row.bitisTarihi}
-                  </Typography>
-                </TableCell>
-
                 <TableCell sx={{ textAlign: "center" }}>
                   <Chip
                     label={row.aktifmi ? "Aktif" : "Pasif"}

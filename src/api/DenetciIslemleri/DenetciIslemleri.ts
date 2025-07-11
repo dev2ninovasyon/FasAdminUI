@@ -117,3 +117,63 @@ export const deleteDenetciById = async (id: number) => {
     console.error("Bir hata oluştu:", error);
   }
 };
+
+export const getDenetciOdemeBilgileri = async (denetciId: any) => {
+  try {
+    const response = await fetch(`${url}/Denetci/OdemeBilgileri/${denetciId}`, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+      },
+    });
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.error("Denetci Ödeme Bilgileri getirilemedi");
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};
+
+export const updateDenetciOdemeBilgileri = async (
+  denetciId: any,
+  updatedDenetciOdemeBilgileri: any
+) => {
+  try {
+    const response = await fetch(`${url}/Denetci/OdemeBilgileri/${denetciId}`, {
+      method: "PUT",
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedDenetciOdemeBilgileri),
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};
+
+export const getDenetciKotaGecmisi = async (denetciId: any) => {
+  try {
+    const response = await fetch(`${url}/Denetci/KotaGecmisi/${denetciId}`, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+      },
+    });
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.error("Denetci Kota Geçmişi getirilemedi");
+    }
+  } catch (error) {
+    console.error("Bir hata oluştu:", error);
+  }
+};

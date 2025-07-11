@@ -187,7 +187,7 @@ const Customizer: FC = () => {
               >
                 <SwipeLeftAltTwoToneIcon
                   color={customizer.activeDir === "ltr" ? "primary" : "inherit"}
-                />{" "}
+                />
                 LTR
               </StyledBox>
               <StyledBox
@@ -197,7 +197,7 @@ const Customizer: FC = () => {
               >
                 <SwipeRightAltTwoToneIcon
                   color={customizer.activeDir === "rtl" ? "primary" : "inherit"}
-                />{" "}
+                />
                 RTL
               </StyledBox>
             </Stack>
