@@ -2,8 +2,7 @@
 import { Grid } from "@mui/material";
 import PageContainer from "@/app/components/Container/PageContainer";
 import Breadcrumb from "@/app/components/Layout/Shared/Breadcrumb/Breadcrumb";
-import ParentCard from "@/app/components/Shared/ParentCard";
-import OdemeBilgileriTable from "@/app/components/tables/OdemeBilgileriTable";
+import OdemeBilgileriTable from "@/app/components/Tables/OdemeBilgileriTable";
 
 const BCrumb = [
   {
