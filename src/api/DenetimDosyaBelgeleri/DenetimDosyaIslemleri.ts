@@ -11,7 +11,7 @@ export const getDosya = async () => {
     if (response.ok) {
       return response.json();
     } else {
-      console.error("Denetciler getirilemedi");
+      console.error("Denetim Dosya Belgeleri getirilemedi");
     }
   } catch (error) {
     console.error("Bir hata oluştu:", error);
@@ -29,7 +29,7 @@ export const getDosyaById = async (id: any) => {
     if (response.ok) {
       return response.json();
     } else {
-      console.error("Denetci getirilemedi");
+      console.error("Denetim Dosya Belgelesi getirilemedi");
     }
   } catch (error) {
     console.error("Bir hata oluştu:", error);
