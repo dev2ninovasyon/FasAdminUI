@@ -17,26 +17,7 @@ export const getDosya = async () => {
     console.error("Bir hata oluştu:", error);
   }
 };
-export const getDosyaByActive = async (isActive: boolean) => {
-  try {
-    const response = await fetch(
-      `${url}/DenetimDosyaBelgeleri/Hepsi?isActive=${isActive}`,
-      {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-        },
-      }
-    );
-    if (response.ok) {
-      return response.json();
-    } else {
-      console.error("Dosyalar Getirilemedi ");
-    }
-  } catch (error) {
-    console.error("Bir hata oluştu:", error);
-  }
-};
+
 export const getDosyaById = async (id: any) => {
   try {
     const response = await fetch(`${url}/DenetimDosyaBelgeleri/${id}`, {
@@ -55,15 +36,15 @@ export const getDosyaById = async (id: any) => {
   }
 };
 
-export const createDosya = async (createdDenetci: any) => {
+export const createDosya = async (createdDosya: any) => {
   try {
-    const response = await fetch(`${url}/Denetci`, {
+    const response = await fetch(`${url}/DenetimDosyaBelgeleri`, {
       method: "POST",
       headers: {
         accept: "*/*",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(createdDenetci),
+      body: JSON.stringify(createdDosya),
     });
 
     if (response.ok) {

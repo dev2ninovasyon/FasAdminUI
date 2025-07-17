@@ -16,10 +16,11 @@ const DosyaDuzenleForm = () => {
 
   const [dosyaNevi, setDosyaNevi] = useState("");
   const [belgeAdi, setBelgeAdi] = useState("");
-  const [formKodu, setFormKodu] = useState(""); // Nullable
+  const [bds, setBds] = useState("");
+  const [formKodu, setFormKodu] = useState("");
+  const [formUrl, setFormUrl] = useState("");
   const [referansNo, setReferansNo] = useState("");
-  const [formUrl, setFormUrl] = useState(""); // Nullable
-  const [arsivKlasorAdi, setArsivKlasorAdi] = useState(""); // Nullable
+  const [arsivKlasorAdi, setArsivKlasorAdi] = useState("");
 
   const router = useRouter();
 
@@ -27,10 +28,11 @@ const DosyaDuzenleForm = () => {
     const updatedDosya = {
       dosyaNevi,
       belgeAdi,
+      bds: bds || null, // Set to null if empty
       formKodu: formKodu || null, // Set to null if empty
-      referansNo,
       formUrl: formUrl || null, // Set to null if empty
-      arsivKlasorAdi: arsivKlasorAdi || null, // Set to null if empty
+      referansNo,
+      arsivKlasorAdi,
     };
     try {
       const result = await updateDosya(pathId, updatedDosya);
@@ -49,10 +51,11 @@ const DosyaDuzenleForm = () => {
       const dosyaVerileri = await getDosyaById(pathId);
       setDosyaNevi(dosyaVerileri.dosyaNevi);
       setBelgeAdi(dosyaVerileri.belgeAdi);
+      setBds(dosyaVerileri.bds || ""); // Set to empty string if null
       setFormKodu(dosyaVerileri.formKodu || ""); // Set to empty string if null
-      setReferansNo(dosyaVerileri.referansNo);
       setFormUrl(dosyaVerileri.formUrl || ""); // Set to empty string if null
-      setArsivKlasorAdi(dosyaVerileri.arsivKlasorAdi || ""); // Set to empty string if null
+      setReferansNo(dosyaVerileri.referansNo);
+      setArsivKlasorAdi(dosyaVerileri.arsivKlasorAdi);
     } catch (error) {
       console.error("Bir hata oluştu:", error);
     }
@@ -95,6 +98,20 @@ const DosyaDuzenleForm = () => {
         </Grid>
         <Grid item xs={12}>
           <CustomFormLabel
+            htmlFor="belgeAdi"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
+            İlgili BDS
+          </CustomFormLabel>
+          <CustomTextField
+            id="bds"
+            value={bds}
+            onChange={(e: any) => setBds(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <CustomFormLabel
             htmlFor="formKodu"
             sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
           >
@@ -104,20 +121,6 @@ const DosyaDuzenleForm = () => {
             id="formKodu"
             value={formKodu}
             onChange={(e: any) => setFormKodu(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <CustomFormLabel
-            htmlFor="referansNo"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
-          >
-            Referans No
-          </CustomFormLabel>
-          <CustomTextField
-            id="referansNo"
-            value={referansNo}
-            onChange={(e: any) => setReferansNo(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -134,6 +137,20 @@ const DosyaDuzenleForm = () => {
             onChange={(e: any) => setFormUrl(e.target.value)}
             fullWidth
           />
+          <Grid item xs={12}>
+            <CustomFormLabel
+              htmlFor="referansNo"
+              sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+            >
+              Referans No
+            </CustomFormLabel>
+            <CustomTextField
+              id="referansNo"
+              value={referansNo}
+              onChange={(e: any) => setReferansNo(e.target.value)}
+              fullWidth
+            />
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <CustomFormLabel
@@ -149,8 +166,13 @@ const DosyaDuzenleForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" onClick={handleButtonClick}>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={9}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleButtonClick}
+          >
             Güncelle
           </Button>
         </Grid>
