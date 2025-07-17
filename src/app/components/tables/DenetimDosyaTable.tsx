@@ -27,11 +27,10 @@ import { useRouter } from "next/navigation";
 interface RowData {
   id: number;
   belgeAdi: string;
-  referansNo: string;
-  formKodu: string;
   bds: string;
+  formKodu: string;
+  referansNo: string;
   arsivKlasorAdi: string;
-  aktifmi: boolean;
 }
 
 const DenetimDosyaTable = () => {
@@ -81,21 +80,14 @@ const DenetimDosyaTable = () => {
       const denetciVerileri = await getDosya();
       const newRows: RowData[] = denetciVerileri.map((dosya: any) => ({
         id: dosya.id, // Assuming there's an 'id' field in the actual entity
+        parentId: dosya.parentId,
         dosyaNevi: dosya.dosyaNevi,
         belgeAdi: dosya.belgeAdi,
-        referansNo: dosya.referansNo,
-        formKodu: dosya.formKodu,
         bds: dosya.bds,
-        parentId: dosya.parentId,
+        formKodu: dosya.formKodu,
         formUrl: dosya.formUrl,
-        dosyaVarmi: dosya.dosyaVarmi,
+        referansNo: dosya.referansNo,
         arsivKlasorAdi: dosya.arsivKlasorAdi,
-        dosyaListesi: dosya.dosyaListesi,
-        yapildimi: dosya.yapildimi,
-        denetimTuru: dosya.denetimTuru,
-        aktifmi: dosya.aktifmi,
-        ekBelgeDurum: dosya.ekBelgeDurum,
-        standardaCevirmeDurum: dosya.standardaCevirmeDurum,
       }));
       setRows(newRows);
     } catch (error) {
@@ -142,7 +134,7 @@ const DenetimDosyaTable = () => {
               </TableCell>
               <TableCell>
                 <Typography textAlign="center" variant="h6">
-                  Referans No
+                  İlgili BDS
                 </Typography>
               </TableCell>
               <TableCell>
@@ -152,17 +144,12 @@ const DenetimDosyaTable = () => {
               </TableCell>
               <TableCell>
                 <Typography textAlign="center" variant="h6">
-                  BDS
+                  Referans No
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography textAlign="center" variant="h6">
                   Arşiv Klasör Adı
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign="center" variant="h6">
-                  Aktif mi?
                 </Typography>
               </TableCell>
               <TableCell></TableCell>
@@ -191,7 +178,7 @@ const DenetimDosyaTable = () => {
                       variant="subtitle1"
                       color="textSecondary"
                     >
-                      {row.referansNo}
+                      {row.bds}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -209,7 +196,7 @@ const DenetimDosyaTable = () => {
                       variant="subtitle1"
                       color="textSecondary"
                     >
-                      {row.bds}
+                      {row.referansNo}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -220,19 +207,6 @@ const DenetimDosyaTable = () => {
                     >
                       {row.arsivKlasorAdi}
                     </Typography>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Chip
-                      label={row.aktifmi ? "Aktif" : "Pasif"}
-                      sx={{
-                        backgroundColor: row.aktifmi
-                          ? (theme) => theme.palette.success.light
-                          : (theme) => theme.palette.error.light,
-                        color: row.aktifmi
-                          ? (theme) => theme.palette.success.main
-                          : (theme) => theme.palette.error.main,
-                      }}
-                    />
                   </TableCell>
                   <TableCell>
                     <IconButton
