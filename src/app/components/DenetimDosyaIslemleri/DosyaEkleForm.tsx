@@ -1,41 +1,57 @@
-import { Grid, Button } from "@mui/material";
-import React, { useState } from "react";
+import { Grid, Button, MenuItem } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import CustomFormLabel from "@/app/components/Forms/ThemeElements/CustomFormLabel";
 import CustomTextField from "@/app/components/Forms/ThemeElements/CustomTextField";
 import { useRouter } from "next/navigation";
-import { createDosya } from "@/api/DenetimDosyaBelgeleri/DenetimDosyaIslemleri";
+import {
+  createDosya,
+  getDosya,
+} from "@/api/DenetimDosyaBelgeleri/DenetimDosyaIslemleri";
+import CustomSelect from "@/app/components/Forms/ThemeElements/CustomSelect";
+
+interface RowData {
+  id: number;
+  parentId: number;
+  dosyaNevi: string;
+  belgeAdi: string;
+  bds: string;
+  formKodu: string;
+  formUrl: string;
+  referansNo: string;
+  arsivKlasorAdi: string;
+  bobimi?: string;
+  tfrsmi?: string;
+}
 
 const DosyaEkleForm: React.FC = () => {
   const router = useRouter();
 
+  const [rows, setRows] = useState<RowData[]>([]);
+
   // State variables
+  const [parentId, setParentId] = useState(0);
   const [dosyaNevi, setDosyaNevi] = useState("");
   const [belgeAdi, setBelgeAdi] = useState("");
-  const [referansNo, setReferansNo] = useState("");
+  const [bds, setBds] = useState("");
   const [formKodu, setFormKodu] = useState("");
-  const [dosyaVarmi, setDosyaVarmi] = useState(false);
+  const [formUrl, setFormUrl] = useState("");
+  const [referansNo, setReferansNo] = useState("");
   const [arsivKlasorAdi, setArsivKlasorAdi] = useState("");
-  const [dosyaListesi, setDosyaListesi] = useState("");
-  const [yapildimi, setYapildimi] = useState(false);
-  const [denetimTuru, setDenetimTuru] = useState("");
-  const [aktifmi, setAktifmi] = useState(false);
-  const [ekBelgeDurum, setEkBelgeDurum] = useState(false);
-  const [standardaCevirmeDurum, setStandardaCevirmeDurum] = useState(false);
+  const [bobimi, setBobimi] = useState("");
+  const [tfrsmi, setTfrsmi] = useState("");
 
   const handleButtonClick = async () => {
     const createdDosya = {
+      parentId,
       dosyaNevi,
       belgeAdi,
+      bds,
       referansNo,
       formKodu,
-      dosyaVarmi,
+      formUrl,
       arsivKlasorAdi,
-      dosyaListesi,
-      yapildimi,
-      denetimTuru,
-      aktifmi,
-      ekBelgeDurum,
-      standardaCevirmeDurum,
+      bobimi,
+      tfrsmi,
     };
 
     try {
@@ -50,9 +66,72 @@ const DosyaEkleForm: React.FC = () => {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const denetciVerileri = await getDosya();
+      const newRows: RowData[] = denetciVerileri.map((dosya: any) => ({
+        id: dosya.id, // Assuming there's an 'id' field in the actual entity
+        parentId: dosya.parentId,
+        dosyaNevi: dosya.dosyaNevi,
+        belgeAdi: dosya.belgeAdi,
+        bds: dosya.bds,
+        formKodu: dosya.formKodu,
+        formUrl: dosya.formUrl,
+        referansNo: dosya.referansNo,
+        arsivKlasorAdi: dosya.arsivKlasorAdi,
+      }));
+      setRows(newRows);
+    } catch (error) {
+      console.error("Bir hata oluştu:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Grid container spacing={2}>
+        {/* Parent Id */}
+        <Grid item xs={12} sm={3} display="flex" alignItems="center">
+          <CustomFormLabel
+            htmlFor="bagliOlduguDosya"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
+            Bağlı Olduğu Dosya
+          </CustomFormLabel>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <CustomSelect
+            labelId="bagliOlduguDosya"
+            id="bagliOlduguDosya"
+            size="small"
+            value={parentId}
+            fullWidth
+            onChange={(e: any) => {
+              setParentId(e.target.value);
+            }}
+            sx={{
+              minWidth: 120,
+              "& .MuiSelect-select": {
+                height: "28px",
+                display: "flex",
+                alignItems: "center",
+              },
+            }}
+          >
+            <MenuItem value={0}>
+              <em>Seçiniz</em>
+            </MenuItem>
+            {rows.map((dosya: RowData) => (
+              <MenuItem key={dosya.id} value={dosya.id}>
+                {dosya.arsivKlasorAdi}-{dosya.belgeAdi}
+                {dosya.referansNo}
+              </MenuItem>
+            ))}
+          </CustomSelect>
+        </Grid>
         {/* Dosya Nevi */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -72,7 +151,6 @@ const DosyaEkleForm: React.FC = () => {
             }
           />
         </Grid>
-
         {/* Belge Adı */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -92,27 +170,25 @@ const DosyaEkleForm: React.FC = () => {
             }
           />
         </Grid>
-
-        {/* Referans No */}
+        {/* Bds */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
-            htmlFor="referansNo"
+            htmlFor="belgeAdi"
             sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
           >
-            Referans No
+            İlgili BDS
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
           <CustomTextField
-            id="referansNo"
-            value={referansNo}
+            id="bds"
+            value={bds}
             fullWidth
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setReferansNo(e.target.value)
+              setBds(e.target.value)
             }
           />
         </Grid>
-
         {/* Form Kodu */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -132,27 +208,44 @@ const DosyaEkleForm: React.FC = () => {
             }
           />
         </Grid>
-
-        {/* Dosya Varmi */}
+        {/* Form Url */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
-            htmlFor="dosyaVarmi"
+            htmlFor="formUrl"
             sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
           >
-            Dosya Varmi
+            Form Url
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
           <CustomTextField
-            id="dosyaVarmi"
-            type="checkbox"
-            checked={dosyaVarmi}
+            id="formUrl"
+            value={formUrl}
+            fullWidth
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDosyaVarmi(e.target.checked)
+              setFormUrl(e.target.value)
             }
           />
         </Grid>
-
+        {/* Referans No */}
+        <Grid item xs={12} sm={3} display="flex" alignItems="center">
+          <CustomFormLabel
+            htmlFor="referansNo"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
+            Referans No
+          </CustomFormLabel>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <CustomTextField
+            id="referansNo"
+            value={referansNo}
+            fullWidth
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setReferansNo(e.target.value)
+            }
+          />
+        </Grid>
         {/* Arşiv Klasör Adı */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
@@ -172,130 +265,47 @@ const DosyaEkleForm: React.FC = () => {
             }
           />
         </Grid>
-
-        {/* Dosya Listesi */}
+        {/* Bobi mi */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
-            htmlFor="dosyaListesi"
+            htmlFor="bobimi"
             sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
           >
-            Dosya Listesi
+            Bobi mi
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
           <CustomTextField
-            id="dosyaListesi"
-            value={dosyaListesi}
-            fullWidth
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDosyaListesi(e.target.value)
-            }
-          />
-        </Grid>
-
-        {/* Yapıldı mı */}
-        <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel
-            htmlFor="yapildimi"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
-          >
-            Yapıldı mı
-          </CustomFormLabel>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <CustomTextField
-            id="yapildimi"
+            id="bobimi"
             type="checkbox"
-            checked={yapildimi}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setYapildimi(e.target.checked)
-            }
+            checked={bobimi}
+            onChange={(e: any) => setBobimi(e.target.checked)}
           />
         </Grid>
-
-        {/* Denetim Türü */}
+        {/* Tfrs mi */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
           <CustomFormLabel
-            htmlFor="denetimTuru"
+            htmlFor="tfrsmi"
             sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
           >
-            Denetim Türü
+            Tfrs mi
           </CustomFormLabel>
         </Grid>
         <Grid item xs={12} sm={9}>
           <CustomTextField
-            id="denetimTuru"
-            value={denetimTuru}
-            fullWidth
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDenetimTuru(e.target.value)
-            }
-          />
-        </Grid>
-
-        {/* Aktif mi */}
-        <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel
-            htmlFor="aktifmi"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
-          >
-            Aktif mi
-          </CustomFormLabel>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <CustomTextField
-            id="aktifmi"
+            id="tfrsmi"
             type="checkbox"
-            checked={aktifmi}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setAktifmi(e.target.checked)
-            }
+            checked={tfrsmi}
+            onChange={(e: any) => setTfrsmi(e.target.checked)}
           />
         </Grid>
-
-        {/* Ek Belge Durumu */}
-        <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel
-            htmlFor="ekBelgeDurum"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
-          >
-            Ek Belge Durumu
-          </CustomFormLabel>
-        </Grid>
+        <Grid item xs={12} sm={3}></Grid>
         <Grid item xs={12} sm={9}>
-          <CustomTextField
-            id="ekBelgeDurum"
-            type="checkbox"
-            checked={ekBelgeDurum}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEkBelgeDurum(e.target.checked)
-            }
-          />
-        </Grid>
-
-        {/* Standarda Çevirme Durumu */}
-        <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel
-            htmlFor="standardaCevirmeDurum"
-            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleButtonClick}
           >
-            Standarda Çevirme Durumu
-          </CustomFormLabel>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <CustomTextField
-            id="standardaCevirmeDurum"
-            type="checkbox"
-            checked={standardaCevirmeDurum}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setStandardaCevirmeDurum(e.target.checked)
-            }
-          />
-        </Grid>
-
-        {/* Submit Button */}
-        <Grid item xs={12}>
-          <Button variant="contained" onClick={handleButtonClick}>
             Dosyayı Oluştur
           </Button>
         </Grid>
